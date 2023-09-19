@@ -1,0 +1,13 @@
+@import 'home.css';
+#campaign-title{
+ color: white;
+ font-size: 3rem;
+}
+#campaign-title:hover{
+ color:#ffc107;
+ z-index: 5;
+ font-size: 3.5rem;
+}
+.ratio{
+ padding: 15%;
+}
