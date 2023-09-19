@@ -1,0 +1,2 @@
+# oikko
+A crowdfunding platform
