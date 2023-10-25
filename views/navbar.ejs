@@ -24,27 +24,19 @@
             <li class="nav-item">
               <a class="nav-link ss active" href="#">About</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
               <a
-                class="nav-link dropdown-toggle "
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                class="nav-link ss active"
+                href="/browse-personal-campaign"
               >
                 Browse Campaigns
               </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/browse-prelaunch">Prelaunches</a></li>
-                <li><a class="dropdown-item" href="/browse-personal-campaign">Personal Campaigns</a></li>
-                <li><a class="dropdown-item" href="/browse-business-campaign">Business Campaigns</a></li>
-              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link ss active" href="/upload-file-test">Services</a>
+              <a class="nav-link ss active" href="#">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link ss active" href="/image-display-test">Newsletter</a>
+              <a class="nav-link ss active" href="#">Newsletter</a>
             </li>
           </ul>
 
@@ -68,8 +60,19 @@
                 <li><a class="dropdown-item" href="/business-campaign-editor">Business Campaign</a></li>
               </ul>
             </li>
-            <div class="nav-item nav-link ss active" href="/dashboard">
-              <%= user.name %>
+            <div>
+              <li class="nav-item">
+                <a class="nav-link ss active" href="/notification">
+                  <%= user.name %>
+                </a>
+              </li>
+            
+            </div>
+            <div >
+             <li class="nav-item">
+                <a class="nav-link ss" style="display:none" href="#"><%= user.email %></a>
+              </li>
+              
             </div>
             <form action="/auth/logout" method="post">
               <button class="nav-item nav-link ss active" type="submit">

@@ -16,93 +16,9 @@ const pool = mysql.createPool({
   queueLimit: 0,
 })
 
-function insertUserWithUniqueImagePath(
-  req,
-  title,
-  city,
-  state,
-  type,
-  description,
-  campaign_img,
-  campaign_video,
-  goal_amount,
-  goal_date,
-  bsb,
-  account,
-  bkash,
-  rocket,
-  nagad,
-  upay,
-  perk_title,
-  perk_description,
-  perk_img,
-  perk_price,
-  perk_retail_price,
-  perk_date,
-  nid_front,
-  nid_back,
-  passport,
-  callback
-) {
-  console.log(req.file)
-  console.log(req.body)
 
-  // Get a connection from the pool
-  pool.getConnection((connectionErr, connection) => {
-    if (connectionErr) {
-      callback(connectionErr)
-      return
-    }
 
-    // SQL query to insert user information and unique image path
-    const sql =
-      'INSERT INTO personal (title,city,state,type, description,campaign_img,campaign_video, goal_amount,goal_date,bsb,account,bkash,rocket,nagad,upay,perk_title,perk_description,perk_img,perk_price, perk_retail_price, perk_date, nid_front, nid_back,passport) VALUES (?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?, ?, ?,?)'
-
-    // Execute the query with user information and unique image path
-    connection.query(
-      sql,
-      [
-        title,
-        city,
-        state,
-        type,
-        description,
-        campaign_img,
-        campaign_video,
-        goal_amount,
-        goal_date,
-        bsb,
-        account,
-        bkash,
-        rocket,
-        nagad,
-        upay,
-        perk_title,
-        perk_description,
-        perk_img,
-        perk_price,
-        perk_retail_price,
-        perk_date,
-        nid_front,
-        nid_back,
-        passport,
-      ],
-      (queryErr, result) => {
-        // Release the connection whether there was an error or not
-        connection.release()
-
-        if (queryErr) {
-          callback(queryErr)
-          return
-        }
-
-        callback(null, result)
-      }
-    )
-  })
-}
-
-function insertBusinessCampaign(
+function insertCampaign(
   req,
   email,
   title,
@@ -132,15 +48,13 @@ function insertBusinessCampaign(
   nid_front,
   nid_back,
   passport,
-  business_plan,
-  project_budget,
-  product_prototype,
-  legal_entity_verification,
-  financial_statements,
-  intellectual_property,
-  permits,
-  contracts,
-  extras,
+  fb_url,
+  twitter_url,
+  yt_url,
+  website_url,
+  is_prelaunch,
+  is_personal,
+  is_business,
   callback
 ) {
   console.log(req.file)
@@ -152,14 +66,15 @@ function insertBusinessCampaign(
       callback(connectionErr)
       return
     }
+   
 
     // SQL query to insert user information and unique image path
-    const sql =
-      'INSERT INTO business ( email, title,city,state,type,tagline,description, campaign_img,campaign_video,feature,feature_img,goal_amount, goal_date,bsb,account,bkash,rocket,nagad,upay,perk_title, perk_description,perk_img,perk_price,perk_retail_price,perk_date,nid_front,nid_back,passport, business_plan,project_budget, product_prototype,legal_entity_verification,financial_statements,intellectual_property, permits, contracts,extras) VALUES (?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+    const sql2 =
+      'INSERT INTO campaigns ( email, title, city, state, type, tagline, description, campaign_img,campaign_video, feature, feature_img, goal_amount, goal_date, bsb, account, bkash, rocket, nagad, upay, perk_title, perk_description, perk_img, perk_price, perk_retail_price, perk_date,nid_front, nid_back, passport, fb_url, twitter_url, yt_url, website_url, is_prelaunch,is_personal,is_business) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
     // Execute the query with user information and unique image path
     connection.query(
-      sql,
+      sql2,
       [
         email,
         title,
@@ -189,15 +104,13 @@ function insertBusinessCampaign(
         nid_front,
         nid_back,
         passport,
-        business_plan,
-        project_budget,
-        product_prototype,
-        legal_entity_verification,
-        financial_statements,
-        intellectual_property,
-        permits,
-        contracts,
-        extras,
+        fb_url,
+        twitter_url,
+        yt_url,
+        website_url,
+        is_prelaunch,
+        is_personal,
+        is_business,
       ],
       (queryErr, result) => {
         // Release the connection whether there was an error or not
@@ -214,22 +127,19 @@ function insertBusinessCampaign(
   })
 }
 
-function insertPrelaunch(
+function insertBusiness(
   req,
   email,
-  title,
-  city,
-  state,
-  type,
-  description,
-  prelaunch_img,
-  prelaunch_video,
-  feature,
-  feature_img,
-  fb_url,
-  twitter_url,
-  yt_url,
-  website_url,
+  bid,
+  business_plan,
+  project_budget,
+  product_prototype,
+  legal_entity_verification,
+  financial_statements,
+  intellectual_property,
+  permits,
+  contracts,
+  extras,
   callback
 ) {
   console.log(req.file)
@@ -245,62 +155,42 @@ function insertPrelaunch(
 
     // SQL query to insert user information and unique image path
     const sql2 =
-      'INSERT INTO prelaunch ( email, title, city, state, type, description, prelaunch_img,prelaunch_video, feature, feature_img, fb_url, twitter_url, yt_url, website_url) VALUES (?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)'
+      'INSERT INTO docs (email, bid, business_plan, project_budget, product_prototype,legal_entity_verification, financial_statements, intellectual_property, permits, contracts,extras) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
     // Execute the query with user information and unique image path
     connection.query(
       sql2,
       [
         email,
-        title,
-        city,
-        state,
-        type,
-        description,
-        prelaunch_img,
-        prelaunch_video,
-        feature,
-        feature_img,
-        fb_url,
-        twitter_url,
-        yt_url,
-        website_url,
+        bid,
+        business_plan,
+        project_budget,
+        product_prototype,
+        legal_entity_verification,
+        financial_statements,
+        intellectual_property,
+        permits,
+        contracts,
+        extras
       ],
       (queryErr, result) => {
         // Release the connection whether there was an error or not
         connection.release()
-          pool.getConnection((connectionErr, connection) => {
-            if (connectionErr) {
-              callback(connectionErr)
-              return
-          }
-            prid = result.insertId
-            console.log(prid)
-            cid=-1
 
-            const sql = 'INSERT INTO project (prid,cid) VALUES (?,?)'
-                connection.query(
-            sql,
-            [
-              prid,cid
-            ],
-                  (queryErr, result) => {
-                      connection.release()
-                    if (queryErr) {
-                      callback(queryErr)
-                      return
-                    }
-                  })
-          })
+        if (queryErr) {
+          callback(queryErr)
+          return
+        }
 
         callback(null, result)
       }
     )
   })
 }
-
 module.exports = {
-  insertUserWithUniqueImagePath,
-  insertPrelaunch,
-  insertBusinessCampaign,
+  // insertUserWithUniqueImagePath,
+  // insertPrelaunch,
+  // insertBusinessCampaign,
+  insertCampaign,
+  insertBusiness
 }

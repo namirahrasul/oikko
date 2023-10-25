@@ -1,13 +1,21 @@
 const express = require('express')
- const fs = require('fs')
+const fs = require('fs')
 const router = express.Router()
+const path = require('path')
+
 const authController = require('./authController') // Import the authentication controller
 const fileController = require('./fileController')
-const projectController = require('./projectController')// Import the file controller
+const projectController = require('./projectController') // Import the file controller
+const browseRoutes = require('./browseRoutes') 
+const browseController = require('./browseController') 
 const userModel = require('../models/userModel') // Import userModel functions
 const fileModel = require('../models/fileModel')
+const projectModel = require('../models/projectModel')
+const followController = require('./followController')
+const followRoutes = require('./followRoutes')
+const adminController = require('./adminController')
+const adminRoutes = require('./adminRoutes')
 
-const path = require('path')
 // router.use("/uploads", express.static(path.join(__dirname, "../uploads")))
 
 // Home page route
@@ -53,13 +61,10 @@ router.get('/changepassword', async (req, res) => {
   const { token } = req.query
   // const user = await userModel.changePassword(emailtoken)
   await userModel.deleteToken(token)
-  // if (user) {
-  //   console.log('verify route user:', user)
+
   const error = req.session.error || ''
-  //   res.redirect('/login', { error })
-  // } else {
-  //   res.send('Invalid or expired token.')
-  // }
+
+
   res.render('forgot-password', { error })
 })
 router.get('/forgot-password', async (req, res) => {
@@ -72,40 +77,49 @@ router.get('/send-token', async (req, res) => {
   res.render('send-token', { error })
 })
 
-router.get('/browse-campaigns', async (req, res) => {
-  res.render('browse-campaigns', { user: req.session.user })
-})
-router.get('/view-campaign', async (req, res) => {
-  res.render('view-campaign', { user: req.session.user })
-})
-router.get('/view-prelaunch', async (req, res) => {
-  const content = {title: 'My Campaign', description: 'This is my campaign description', image: ''}
-  res.render('view-prelaunch', { user: req.session.user, content: content })
-})
-router.get('/view-campaign', async (req, res) => {
-  const content = {
-    title: 'My Campaign',
-    description: 'This is my campaign description',
-    image: '',
-  }
-  res.render('view-campaign', { user: req.session.user, content: content })
-})
+
 
 // Serve static files from the 'uploads' directory
-router.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+router.use('/uploads', express.static(path.join(__dirname, '../uploads')))
 
-router.get('/browse-personal-campaign', projectController.getBrowseCampaigns)
-router.get('/browse-business-campaign', projectController.browseBusinessCampaigns)
-router.get('/browse-prelaunch', projectController.browsePrelaunches)
+router.get('/browse-personal-campaign', projectController.getBrowseCampaigns
+)
 
-router.get('/campaign/prelaunch/:campaignId',
+
+router.get(
+  '/campaign/prelaunch/:campaignId',
   projectController.getPrelaunchCampaign
 )
-router.get('/campaign/personal/:campaignId', projectController.getCampaign)
-router.get('/campaign/business/:campaignId', projectController.getBusinessCampaign)
+router.get('/campaign/personal/:campaignId', projectController.getPersonal)
+// router.get(
+//   '/campaign/:campaignId',
+//   projectController.getPersonal
+// )
 
 // Include authentication routes from authController
 router.use('/auth', authController)
 router.use('/file', fileController)
+router.use('/browse', browseRoutes)
+router.use('/follow', followRoutes)
+router.use('/admin', adminRoutes)
+
+
+
+router.get('/sort/amount', browseController.sortByHighestAmount)
+router.get('/sort/followers', browseController.sortByHighestFollowers)
+router.get('/sort/backers', browseController.sortByHighestBackers)
+router.get('/sort/deadline', browseController.sortByEarliestDeadline)
+router.get('/filter', browseController.filterByCategory)
+
+router.get('/notification', followController.getNotifications)
+router.get('/MyCampaigns', followController.getMyCampaignsProfile)
+router.get('/FollowedCampaigns', followController.getFollowedCampaignsProfile)
+router.get('/DonatedCampaigns', followController.getBackedCampaignsProfile)
+
+// testing
+router.get('/users', adminController.getUsers)
+router.get('/unapprovedCampaigns', adminController.getNotApprovedCampaigns)
+// router.get('/approveCampaign/:campaignId', adminController.approveCampaign)
+
 
 module.exports = router

@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-// const mysql = require('mysql')
+
 const { v4: uuidv4 } = require('uuid')
 
 const mysql = require('mysql2')
@@ -183,43 +183,3 @@ module.exports = {
   authenticateUser,
   changePassword,
 }
-// async function changePassword(email, password,token) {
-//   const hashedPassword = await bcrypt.hash(password, 10)
-//   const sql = 'UPDATE users SET password = ? WHERE email = ?'
-//   return new Promise((resolve, reject) => {
-//     pool.query(sql, [hashedPassword, email], (err, result) => {
-//       if (err) {
-//         console.error('Error changing password: ', err)
-//         reject(err)
-//       }else {
-//         resolve(result);
-//       }
-//     });
-//   });
-// }
-// async function authenticateUser(email, password) {
-//   const sql = 'SELECT * FROM users WHERE email = ? AND password = ?'
-//   return new Promise((resolve, reject) => {
-//     pool.query(sql, [email,password], (err, rows) => {
-//       if (err) {
-//         console.error('Error authenticating user: ', err)
-//         reject(err)
-//       }
-//       if (rows.length > 0) {
-//         const user = rows[0]
-//         console.log('User retrieved from the database:', user)
-//         const passwordMatch = comparePasswords(password, user.password)
-//         console.log('Password entered by user:', password)
-//         console.log('Hashed password from the database:', user.password)
-//         console.log('Password comparison result:', passwordMatch)
-//         if (passwordMatch) {
-//           resolve(user)
-//         } else {
-//           resolve(null)
-//         }
-//       } else {
-//         resolve(null)
-//       }
-//     })
-//   })
-// }

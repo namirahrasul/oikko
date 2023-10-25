@@ -19,7 +19,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-6">
-          <form id="user" action="/file/submit" method="post" enctype="multipart/form-data">
+          <form id="user" action="/file/submit-personal" method="post" enctype="multipart/form-data">
             <!-- //////////////////////////////BASICS////////////// -->
             <div class="">
               <hr />
@@ -106,6 +106,19 @@
                 </select>
               </div>
               <br />
+              <div class="col-md-10">
+                <label class="hed" for="tagline">Tagline</label
+                >
+                 <input
+                  type="text"
+                  class="form-control"
+                  id="campaignTagline"
+                  name="tagline"
+                  aria-describedby="campaignhelp"
+                  placeholder="Campaign Tagline"
+                />
+              </div>
+              <br />
               <div class="col-md-6">
                 <label class="hed" for="description">Description</label
                 ><label class="star hed">*</label>
@@ -158,6 +171,43 @@
                 <br />
               </div>
             </div>
+             <h1 class="base">FEATURES</h1>
+            <hr />
+            <div class="col-md-50 position-relative">
+              <label class="hed" for="campaignTitle">Main Features</label
+              ><br>
+
+              <small id="campaignhelp" class="form-text text-muted"
+                >What are the main features of your project or campaign?</small
+              >
+              <br>
+              <br>
+              <textarea name="feature" id="feature" cols="50" rows="6"></textarea>
+              <br>
+              <br>
+            </div>
+            <div class="col-md-50 position-relative">
+              <label class="hed" for="campaignTitle">Main Feature Image</label
+              ><br>
+
+              <small id="campaignhelp" class="form-text text-muted"
+                >Upload a square image that represents your campaign.
+                <br>
+                640 x 640 recommended resolution. 220 x 220 minimum
+                resolution.
+                <br
+              /></small>
+              <br>
+              <input
+                type="file"
+                id="picture"
+                name="file2"
+                accept="image/*"
+                required
+              />
+              <br><br>
+            </div>
+              <br/><br/>
             <p class="base">CAMPAIGN GOALS</p>
             <hr />
             <p><b>Fill out your campaign goals.</b></p>
@@ -398,7 +448,7 @@
                 <input
                   type="file"
                   id="picture"
-                  name="file2"
+                  name="file3"
                   accept="image/*"
                   required
                 />
@@ -409,7 +459,7 @@
                 ><label class="star hed">*</label><br />
                 <small id="campaignhelp" class="form-text text-muted"
                   >Set an amount of price you want to collect from backers who
-                  claim this perm. This amount should reprensent how much you
+                  claim this perm. This amount should represent how much you
                   want to receive for all the items included this perk.</small
                 >
                 <br />
@@ -451,21 +501,64 @@
                 <input type="date" id="birthday" name="perk_date" />
               </div>
               <br />
-              <!-- <div class="col-md-30">
-                                    <label for="visibility" class="form-label hed">Shipping</label><label class="star hed">*</label><br>
-                                    
-                                   
-                                   <small id="CampaignArea" class="form-text text-muted"
-                                      >Does this perk contain items that you need to ship? 
-                                      <br />
-                                    </small>
-                                    <input type="radio" id="html" name="fav_language" value="HTML">
-                                    <label for="html"><b>NO</b></label><br>
-                                    <input type="radio" id="css" name="fav_language" value="CSS">
-                                    <label for="css"><b>YES</b></label>
-                                </div> -->
+
             </div>
             <br /><br />
+
+                                   <p class="base">SOCIAL SHARING</p>
+            <hr />
+            <p>
+              <b
+                >Entice your audience to social media links and get additional
+                boost.</b
+              >
+            </p>
+            <div class="col-md-50 position-relative">
+              <label class="hed" for="campaignTitle">Facebook URL</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fb_url"
+                name="fb_url"
+                placeholder="https://www.facebook.com/projectName"
+              />
+            </div>
+            <br />
+            <div class="col-md-50 position-relative">
+              <label class="hed" for="campaignTitle">Twitter URL</label>
+              <input
+                type="text"
+                class="form-control"
+                id="twitter_url"
+                name="twitter_url"
+                placeholder="https://www.twitter.com/projectName"
+              />
+            </div>
+            <br />
+            <div class="col-md-50 position-relative">
+              <label class="hed" for="campaignTitle">YouTube URL</label>
+              <input
+                type="text"
+                class="form-control"
+                id="yt_url"
+                name="yt_url"
+                placeholder="https://www.youtube.com/projectName"
+              />
+            </div>
+            <br />
+            
+            <div class="col-md-50 position-relative">
+              <label class="hed" for="campaignTitle">Website URL</label>
+              <input
+                type="text"
+                class="form-control"
+                id="yt_url"
+                name="yt_url"
+                placeholder="https://www.projectName.com"
+              />
+            </div>
+             <br />
+            <br><br>
 
             <!-- /////////////////////////////////FUNDING//////////////////////////// -->
 
@@ -486,7 +579,7 @@
               <input
                 type="file"
                 id="picture"
-                name="file3"
+                name="file4"
                 accept="image/*"
                 required
               />
@@ -504,7 +597,7 @@
               <input
                 type="file"
                 id="picture"
-                name="file4"
+                name="file5"
                 accept="image/*"
                 required
               />
@@ -530,7 +623,7 @@
               <input
                 type="file"
                 id="picture"
-                name="file5"
+                name="file6"
                 accept="image/*"
                 required
               />
