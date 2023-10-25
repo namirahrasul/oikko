@@ -74,20 +74,22 @@
               <div class="col-1">
                <h4>ID</h4>
               </div>
-              <div class="col-2 ms-1">
+              <div class="col-2 me-1">
                <h4>Title</h4>
               </div>
-              <div class="col-4 ms-1">
+              <div class="col-4 me-1">
                <h4>Creator</h4>
               </div>
-              <div class="col-1 me-4">
+              <div class="col-1 me-1">
                <h4>View</h4>
               </div>
-
-              <div class="col-1 me-4">
+              <div class="col-1 me-1">
+               <h4>Documents</h4>
+              </div>
+              <div class="col-1 me-1">
                <h4>Approve</h4>
               </div>
-              <div class="col-1 me-4">
+              <div class="col-1 me-1">
                <h4>Decline</h4>
               </div>
 
@@ -105,15 +107,28 @@
                  <%=campaigns[i].email%>
                 </div>
                 <form id="view-form" class=" me-1 col-1" action="/admin/approveCampaign/<%=campaigns[i].id%>"
-                 method="post">
+                 method="get">
                  <button form="approve-form" type="submit" class="btn btn-sm btn-dark ">View</button>
                 </form>
-                <form id="approve-form" class="me-1 col-1"
-                 action="/admin/approveCampaign/<%=campaigns[i].id%>" method="post">
+                
+                 <% if (campaigns[i].is_prelaunch) { %>
+                  <form id="view-form" class=" me-1 col-1" action="/admin/viewCampaign/<%=campaigns[i].id%>" method="get">
+                  
+                <button form="approve-form" type="submit" class="btn btn-sm btn-dark " disabled>Documents</button>
+
+                </form>
+                <% } else { %>
+                 <form id="view-form" class=" me-1 col-1" action="/admin/viewCampaign/<%=campaigns[i].id%>" method="get">
+                 <button form="approve-form" type="submit" class="btn btn-sm btn-dark " >Documents</button>
+                 </form>
+                <%}%>
+                
+                <form id="approve-form" class="me-1 col-1" action="/admin/viewDocuments/<%=campaigns[i].id%>"
+                 method="post">
                  <button form="approve-form" type="submit" class="btn btn-sm btn-success ">Approve</button>
                 </form>
-                <form id="decline-form" class="me-1 col-1"
-                 action="/admin/declineCampaign/<%=campaigns[i].id%>" method="post">
+                <form id="decline-form" class="me-1 col-1" action="/admin/declineCampaign/<%=campaigns[i].id%>"
+                 method="post">
                  <button type="submit" form="decline-form" class="btn btn-sm btn-danger">Decline</button>
                 </form>
                </div>
