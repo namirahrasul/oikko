@@ -1,0 +1,259 @@
+@import 'home.css';
+
+.notifcontainer{
+  margin-top: 90px;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: flex;
+}
+
+body{
+  background: #dfe9f5;
+}
+
+.notifnav{
+  display: flex;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  height: 250vh;
+  left: 0;
+  background: #fff;
+  width: 280px;
+  overflow: none;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  margin-top: -10px;
+}
+
+
+
+
+.prof{
+  margin-left:20px;
+}
+.notiflogo{
+  text-align: center;
+  display: flex;
+  margin: 10px 0 0 10px;
+}
+
+.notiflogo img{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 60px;
+}
+
+.notiflogo span{
+  font-weight: bold;
+  padding-left: 15px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.notifa{
+  position: relative;
+  color: rgb(85, 83, 83);
+  font-size: 14px;
+  display: block;
+  width: auto;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.notifnav .fas{
+  position: relative;
+  width: 70px;
+  height: 40px;
+  top: 14px;
+  font-size: 20px;
+  text-align: left;
+}
+
+.notifnav-item{
+  position: relative;
+  top: 12px;
+  margin-left:-45px;
+
+}
+
+.notifa:hover{
+  background: #eee;
+}
+.notifnav  ul li{
+  list-style-type: none;
+  margin-left:0px; /* Adjust the margin to add space between list items */
+  color: rgb(0, 0, 0);
+}
+
+.notifnav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column; /* Change to a vertical layout */
+}
+
+
+ .profile-card {
+  width: 500px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+
+
+/* Main Section */
+ .main{
+  position: relative;
+  padding: 20px;
+  width: 100%;
+} 
+
+.main-skills{
+  display: flex;
+  margin-top: 20px;
+  margin-left: 60px;
+  align-items: space-between;
+  justify-items: center;
+}
+
+.main-skills-h3{
+  margin: 10px;
+  font-size: 22px;
+  text-align: lcenter;
+  color: rgb(15, 49, 100);
+}
+
+.main-skills-Heda5{
+  font-size: 22px;
+  text-align: center;
+  color: #197d9f;
+  margin: 10px;
+  font-weight:700;
+
+}
+
+
+
+
+.main-course{
+  margin-top:20px ;
+ 
+}
+.course-box{
+  width: 100%;
+  padding: 10px 10px 30px 10px;
+  margin-top: 10px;
+  background: #ffffff;
+  border-radius: (125, 125, 125)0px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.course-box .course{
+  display: flex;
+} */
+.box{
+  width: 100%;
+  /* width: 33%; */
+  padding: 10px;
+  margin: 60px;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.box p{
+  font-size: 12px;
+  margin-top: 5px;
+}
+.box button{
+  background: #000;
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 10px;
+  margin-top: 3rem;
+  cursor: pointer;
+}
+.box button:hover{
+  background: rgba(25, 25, 25, 0.851);
+}
+.box i{
+  font-size: 7rem;
+  float: right;
+  margin: -20px 20px 20px 0;
+}
+
+
+/* Notification................................................... */
+
+
+ 
+.dash-content .activity .activity-data{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.activity .activity-data{
+    display: flex;
+}
+.activity-data .data{
+    display: flex;
+    flex-direction: column;
+    margin: 0 15px;
+}
+.activity-data .data-title{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+.activity-data .data .data-list{
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 20px;
+    white-space: nowrap;
+    color: var(--text-color);
+}
+
+@media (max-width: 1000px) {
+    .activity .activity-data{
+        overflow-X: scroll;
+    }
+}
+
+.boldName{
+    font-size: 30px;
+    color: #1d7fb7;
+}
+
+.dashss{
+    color: red;
+} 
+
+.unapproved-dropdown {
+  position: relative; /* Required for positioning children */
+}
+
+.unapproved-dropdown .unapproved-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position below the button */
+  left: 0;
+  display: none; /* Initially hide the dropdown */
+}
+
+/* Show the dropdown when the parent is hovered */
+.unapproved-dropdown:hover .unapproved-dropdown-menu {
+  display: block;
+}

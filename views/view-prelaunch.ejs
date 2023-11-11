@@ -18,9 +18,10 @@
         </div>
                     <div class="col-2 text-end">
                       <div class="">
-                        <!-- <button id="goToDonationPage" class="btn btn-success btn-lg me-4">Donate</button> -->
+                        <% if(user){ %>
                         <button id="followButton" class="btn btn-warning btn-lg " @click="toggleFollow">{{ isFollowing ? 'Unfollow' :
                           'Follow' }}</button>
+                        <% } %>
                       </div>
                     </div>
       </div>
@@ -146,19 +147,14 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"></script>
               <script>
-                const goalAmount = parseFloat('<%= campaign.goal_amount %>');
+                
                 const cid = '<%= campaign.id %>';
-                const city = '<%= campaign.city %>';
-                const state = '<%= campaign.state %>';
-                const amountRaised = 5000;
+
+                
                 new Vue({
                   el: '#app',
                   data: {
                     isFollowing: false,
-                    amountRaised: 5000,
-                    totalGoal: goalAmount,// Set the initial amount raised here
-                    city: 'Gazipur', // Set the city here
-                    state: 'Dhaka', // Set the state here
                     following: cid,
                   },
                   methods: {

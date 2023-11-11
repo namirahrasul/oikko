@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate</title>
+  <link rel="stylesheet" href="donate.css">
+  <%- include('head.ejs', { title: 'Donation' , stylesheet: '/css/donation.css' }) %>
+</head>
+
+<body>
+
+  <%- include('navbar.ejs', { user: user }) %>
+  <div>
+   
+    </div>
+    <form id="donation-button" action="/donation/submit-donation" method="POST">
+      <div class="paybcontainer">
+        <div class="popup">
+          <input class="d-none" value="<%=campaignId%>"><br>
+          <label class="bolded" for="TkAmount">Enter the Amount: </label>
+          <input class="inputts" type="number" name="donation" id="don" placeholder="100">
+          <label class="bolded" for="Teka">Tk</label>
+          <button type="submit" class="paybtn" @click="toggleDonor">Pay</button>
+        </div>
+      </div>
+    </form>
+
+    <script>
+      const cid = '<%= campaignId %>';
+      new Vue({
+        el: '#app',
+        data: {
+          isFollowing: false,
+          following: cid,
+        },
+        methods: {
+          toggleDonor() {
+            this.sendDataDonor();
+          },
+          sendDataDonor() {
+            // Use the inputValue from the data
+            const data = { test: cid };
+
+            fetch("/donation/submit-donation", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        },
+      })
+    </script>
+</body>
+
+</html>

@@ -66,11 +66,11 @@ function insertCampaign(
       callback(connectionErr)
       return
     }
-   
+
 
     // SQL query to insert user information and unique image path
     const sql2 =
-      'INSERT INTO campaigns ( email, title, city, state, type, tagline, description, campaign_img,campaign_video, feature, feature_img, goal_amount, goal_date, bsb, account, bkash, rocket, nagad, upay, perk_title, perk_description, perk_img, perk_price, perk_retail_price, perk_date,nid_front, nid_back, passport, fb_url, twitter_url, yt_url, website_url, is_prelaunch,is_personal,is_business) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+      'INSERT INTO campaigns ( email, title, city, state, type, tagline, description, campaign_img, campaign_video, feature, feature_img, goal_amount, goal_date, bsb, account, bkash, rocket, nagad, upay, perk_title, perk_description, perk_img, perk_price, perk_retail_price, perk_date,nid_front, nid_back, passport, fb_url, twitter_url, yt_url, website_url, is_prelaunch,is_personal,is_business) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
     // Execute the query with user information and unique image path
     connection.query(
@@ -151,7 +151,7 @@ function insertBusiness(
       callback(connectionErr)
       return
     }
-   
+
 
     // SQL query to insert user information and unique image path
     const sql2 =

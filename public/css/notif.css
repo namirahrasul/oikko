@@ -28,6 +28,11 @@ body{
   margin-top: -10px;
 }
 
+.unapproved-dropdown-menu li {
+position: relative;
+display: block;
+}
+
 /* .navDisplay{
   position: fixed;
 } */

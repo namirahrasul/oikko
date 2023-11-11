@@ -36,7 +36,8 @@ router.post('/deleteUser/:userEmail', async (req, res) => {
  console.log(email)
  try {
   await adminModel.deleteUser(email);
-  res.redirect('/users');
+  const users = await adminModel.getUsers();
+  res.redirect('/users', { user: req.session.user, users: users });
 
  } catch (error) {
   console.error('Error deleting user:', error);
@@ -50,7 +51,8 @@ router.post('/declineCampaign/:campaignId', async (req, res) => {
  try {
   const affectedRows = await adminModel.declineCampaign(id);
   console.log(affectedRows);
-  res.redirect('/UnapprovedCampaigns');
+  const campaigns = await adminModel.getNotApprovedCampaigns();
+  res.redirect('/UnapprovedCampaigns',{ user: req.session.user, campaigns: campaigns });
 
  } catch (error) {
   console.error('Error declining campaign:', error);
@@ -64,8 +66,8 @@ router.post('/approveCampaign/:campaignId', async (req, res) => {
  try {
   const affectedRows = await adminModel.approveCampaign(id);
   console.log(affectedRows);
-  
-  res.redirect('/UnapprovedCampaigns');
+  const campaigns = await adminModel.getNotApprovedCampaigns();
+  res.redirect('/UnapprovedCampaigns', { user: req.session.user, campaigns: campaigns });
 
 
  } catch (error) {

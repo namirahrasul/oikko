@@ -71,10 +71,14 @@ async function getFollowedCampaignsProfile(req, res){
 async function getBackedCampaignsProfile(req, res) {
   res.render('DonatedCampaigns', { user: req.session.user });
 }
+
+async function editProfile(req, res) {
+  res.render('edit-profile', { user: req.session.user });
+}
 module.exports = {
   getNotifications,
   getMyCampaignsProfile,
   getFollowedCampaignsProfile,
   getBackedCampaignsProfile,
-  
+  editProfile
   }

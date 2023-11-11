@@ -1,161 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('head.ejs', { title: 'Notifications' , stylesheet: '/css/notif.css' }) %>
+<%- include('head.ejs', { title: 'Notifications' , stylesheet: '/css/unapproved-campaigns.css' }) %>
 
- <body>
-  <%- include('navbar.ejs', { user: user }) %>
-   <div class="notifcontainer">
-    <div class="notifnav">
-     <ul>
-      <li><a href="#" class="notiflogo notifa">
-        <img src="/images/Cryuff.jpg" alt="">
-        <span class="notifnav-item">DashBoard</span>
-       </a>
-      </li>
+  <body>
+    <%- include('navbar.ejs', { user: user }) %>
+      <div class="notifcontainer">
+        <div class="notifnav">
+          <ul>
+            <li><a href="#" class="notiflogo notifa">
+                <img src="/images/Cryuff.jpg" alt="">
+                <span class="notifnav-item">DashBoard</span>
+              </a>
+            </li>
 
-      <li><a href="/MyCampaigns" class="notifa">
-        <i class="fas fa-user"></i>
-        <span class="notifnav-item prof">Profile</span>
-       </a></li>
+            <li><a href="/MyCampaigns" class="notifa">
+                <i class="fas fa-user"></i>
+                <span class="notifnav-item prof">Profile</span>
+              </a></li>
 
-      <li><a href="/notification" class="notifa">
-        <i class="fas fa-bell"></i>
-        <span class="notifnav-item">Notification</span>
-       </a></li>
-      <li><a href="/FollowedCampaigns" class="notifa">
-        <i class="fas fa-thumbs-up"></i>
-        <span class="notifnav-item">Followed Campaigns</span>
-       </a></li>
-      <li><a href="/DonatedCampaigns" class="notifa">
-        <i class="fas fa-user"></i>
-        <span class="notifnav-item">Backed Campaigns</span>
-       </a></li>
-     </ul>
-    </div>
-
-    <section class="main">
-
-
-
-     <div class="main-skills">
-
-      <div class="profile-card">
-       <h3 class="main-skills-h3">Name: </h3>
-       <h3 class="main-skills-Heda5">
-        <%=user.name%>
-       </h3>
-
-      </div>
-      <div class="profile-card">
-       <h3 class="main-skills-h3">Email: </h3>
-       <h3 class="main-skills-Heda5">
-        <%=user.email%>
-       </h3>
-      </div>
-
-     </div>
-
-
-     <section class="main-course">
-      <!-- <h1><b>My Story</b></h1> -->
-      <div class="course-box">
-       <ul>
-       </ul>
-       <div class="course">
-
-        <div class="activity-data">
-         <div class="data names">
-          <span class="data-title"><b class="boldName"><u></u>Approve Campaigns</b></span>
-          <div class="col-md-12">
-           <% if(campaigns.length==0) { %>
-            <p>No campaigns need approval</p>
-            <% } else {%>
-             <div class="row justify-content-between">
-              <div class="col-1">
-               <h4>ID</h4>
-              </div>
-              <div class="col-2 me-1">
-               <h4>Title</h4>
-              </div>
-              <div class="col-4 me-1">
-               <h4>Creator</h4>
-              </div>
-              <div class="col-1 me-1">
-               <h4>View</h4>
-              </div>
-              <div class="col-1 me-1">
-               <h4>Documents</h4>
-              </div>
-              <div class="col-1 me-1">
-               <h4>Approve</h4>
-              </div>
-              <div class="col-1 me-1">
-               <h4>Decline</h4>
-              </div>
-
-
-
-              <% for (let i=0; i < campaigns.length; i++) { %>
-               <div class="row justify-content-between">
-                <div class="col-1">
-                 <%=campaigns[i].id%>
-                </div>
-                <div class="col-4">
-                 <%=campaigns[i].title%>
-                </div>
-                <div class="col-2">
-                 <%=campaigns[i].email%>
-                </div>
-                <form id="view-form" class=" me-1 col-1" action="/admin/approveCampaign/<%=campaigns[i].id%>"
-                 method="get">
-                 <button form="approve-form" type="submit" class="btn btn-sm btn-dark ">View</button>
-                </form>
-                
-                 <% if (campaigns[i].is_prelaunch) { %>
-                  <form id="view-form" class=" me-1 col-1" action="/admin/viewCampaign/<%=campaigns[i].id%>" method="get">
-                  
-                <button form="approve-form" type="submit" class="btn btn-sm btn-dark " disabled>Documents</button>
-
-                </form>
-                <% } else { %>
-                 <form id="view-form" class=" me-1 col-1" action="/admin/viewCampaign/<%=campaigns[i].id%>" method="get">
-                 <button form="approve-form" type="submit" class="btn btn-sm btn-dark " >Documents</button>
-                 </form>
-                <%}%>
-                
-                <form id="approve-form" class="me-1 col-1" action="/admin/viewDocuments/<%=campaigns[i].id%>"
-                 method="post">
-                 <button form="approve-form" type="submit" class="btn btn-sm btn-success ">Approve</button>
-                </form>
-                <form id="decline-form" class="me-1 col-1" action="/admin/declineCampaign/<%=campaigns[i].id%>"
-                 method="post">
-                 <button type="submit" form="decline-form" class="btn btn-sm btn-danger">Decline</button>
-                </form>
-               </div>
-               <div class="row">
-                <div class="col-12">
-                 <hr>
-                </div>
-               </div>
-               <% } %>
-
-             </div>
-             <% } %>
-          </div>
-         </div>
+            <li><a href="/notification" class="notifa">
+                <i class="fas fa-bell"></i>
+                <span class="notifnav-item">Notification</span>
+              </a></li>
+            <li><a href="/FollowedCampaigns" class="notifa">
+                <i class="fas fa-thumbs-up"></i>
+                <span class="notifnav-item ">Followed Campaigns</span>
+              </a></li>
+            <li><a href="/DonatedCampaigns" class="notifa">
+                <i class="fas fa-user"></i>
+                <span class="notifnav-item">Backed Campaigns</span>
+              </a></li>
+            <% if(user.is_admin) { %>
+              <li><a href="/unapprovedCampaigns" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Approve Campaigns</span>
+                </a></li>
+              <li><a href="/users" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Users</span>
+                </a></li>
+              <li><a href="/register-admin" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Add Admin</span>
+                </a></li>
+              <% } %>
+          </ul>
         </div>
-       </div>
-     </section>
-    </section>
-   </div>
-   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-    crossorigin="anonymous"></script>
- </body>
+        <section class="main">
+
+
+
+          <div class="main-skills">
+
+            <div class="profile-card">
+              <h3 class="main-skills-h3">Name: </h3>
+              <h3 class="main-skills-Heda5">
+                <%=user.name%>
+              </h3>
+
+            </div>
+            <div class="profile-card">
+              <h3 class="main-skills-h3">Email: </h3>
+              <h3 class="main-skills-Heda5">
+                <%=user.email%>
+              </h3>
+            </div>
+
+          </div>
+
+
+          <section class="main-course">
+            <!-- <h1><b>My Story</b></h1> -->
+            <div class="course-box">
+              <ul>
+              </ul>
+              <div class="course">
+
+                <div class="activity-data">
+                  <div class="data names">
+                    <span class="data-title"><b class="boldName"><u></u>Approve Campaigns</b></span>
+                    <div class="col-md-12">
+                      <% if(campaigns.length==0) { %>
+                        <p>No campaigns need approval</p>
+                        <% } else {%>
+                          <div class="row justify-content-between">
+                            <div class="col-1">
+                              <h4>ID</h4>
+                            </div>
+                            <div class="col-2 ">
+                              <h4>Title</h4>
+                            </div>
+                            <div class="col-3">
+                              <h4>Creator</h4>
+                            </div>
+                            <div class="col-2">
+                              <h4>View</h4>
+                            </div>
+                            <div class="col-2">
+                              <h4>Documents</h4>
+                            </div>
+                            <div class="col-1">
+                              <h4>Approve</h4>
+                            </div>
+                            <div class="col-1">
+                              <h4>Decline</h4>
+                            </div>
+
+
+
+                            <% for (let i=0; i < campaigns.length; i++) { %>
+                              <div class="row justify-content-between">
+                                <div class="col-1">
+                                  <%=campaigns[i].id%>
+                                </div>
+                                <div class="col-3">
+                                  <%=campaigns[i].title%>
+                                </div>
+                                <div class="col-2">
+                                  <%=campaigns[i].email%>
+                                </div>
+                                <% if (campaigns[i].is_prelaunch) { %>
+                                  <div class="col-2">
+                                    <a href="/campaign/prelaunch/<%=campaigns[i].id%>"
+                                      class="btn btn-sm btn-dark me-1 col-1">View</a>
+                                  </div>
+                                  <div class="col-2">
+                                    <a href="#" class="btn btn-sm me-1 col-1 btn-dark disabled ">Documents</a>
+                                  </div>
+                                  <% } else { %>
+                                    <div class="col-2">
+                                      <a href="/campaign/personal/<%=campaigns[i].id%>"
+                                        class="btn btn-sm btn-dark me-1 col-1 ">View</a>
+                                    </div>
+                                    <div class="col-2">
+                                      <div class="btn-group">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle unapproved-dropdown" type="button" data-bs-toggle="dropdown"
+                                          aria-expanded="false">
+                                          Documents
+                                        </button>
+                                        <ul class="unapproved-dropdown-menu dropdown-menu">
+                                          <% if (campaigns[i].nid_front) { %>
+                                            <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].nid_front%>" target="_blank">NID Frontside</a></li>
+                                            <% } %>
+                                              <% if (campaigns[i].nid_back) { %>
+                                                <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].nid_back%>" target="_blank">NID
+                                                    Backside</a></li>
+                                                <% } %>
+                                                  <% if (campaigns[i].passport) { %>
+                                                    <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].passport%>" target="_blank">Passport</a></li>
+                                                    <% } %>
+                                                      <% if (campaigns[i].business_plan) { %>
+                                                        <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].business_plan%>" target="_blank">Business
+                                                            Plan</a>
+                                                        </li>
+                                                        <% } %>
+                                                          <% if (campaigns[i].project_budget) { %>
+                                                            <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].project_budget%>" target="_blank">Project
+                                                                Budget</a></li>
+                                                            <% } %>
+                                                              <% if (campaigns[i].product_prototype) { %>
+                                                                <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].product_prototype%>"
+                                                                    target="_blank">Product
+                                                                    Prototype</a></li>
+                                                                <% } %>
+                                                                  <% if (campaigns[i].legal_entity_verification) { %>
+                                                                    <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].legal_entity_verification%>"
+                                                                        target="_blank">Legal Entity
+                                                                        Prototype</a></li>
+                                                                    <% } %>
+                                                                      <% if (campaigns[i].financial_statements){ %>
+                                                                        <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].financial_statements%>"
+                                                                            target="_blank">Financial
+                                                                            Statements</a></li>
+                                                                        <% } %>
+                                                                          <% if(campaigns[i].intellectual_property){ %>
+                                                                            <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].intellectual_property%>"
+                                                                                target="_blank">Intellectual
+                                                                                Property</a></li>
+                                                                            <% } %>
+                                                                              <% if(campaigns[i].permits){%>
+                                                                                <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].permits%>"
+                                                                                    target="_blank">Permits</a>
+                                                                                </li>
+                                                                                <% } %>
+                                                                                  <% if(campaigns[i].contracts){%>
+                                                                                    <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].contracts%>"
+                                                                                        target="_blank">Contracts</a>
+                                                                                    </li>
+                                                                                    <% } %>
+                                                                                      <% if(campaigns[i].extras){%>
+                                                                                        <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].extras%>"
+                                                                                            target="_blank">Miscellanious</a>
+                                                                                        </li>
+                                                                                        <% } %>
+                                        </ul>
+                                      </div>
+
+                                    </div>
+                                    <%}%>
+
+                                      <form id="approve-form" class="col-1"
+                                        action="/admin/approveCampaign/<%=campaigns[i].id%>" method="post">
+                                        <button form="approve-form" type="submit"
+                                          class="btn btn-sm btn-success ">Approve</button>
+                                      </form>
+                                      <form id="decline-form" class="col-1"
+                                        action="/admin/declineCampaign/<%=campaigns[i].id%>" method="post">
+                                        <button type="submit" form="decline-form"
+                                          class="btn btn-sm btn-danger">Decline</button>
+                                      </form>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <hr>
+                                </div>
+                              </div>
+                              <% } %>
+
+                          </div>
+                          <% } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </section>
+        </section>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+  </body>
 
 </html>

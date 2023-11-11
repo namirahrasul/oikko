@@ -34,7 +34,7 @@ async function getNotApprovedCampaignsById(campaignId) {
 
 async function getNotApprovedCampaigns() {
  try {
-  const sql = `SELECT id,email,title,city,state,type,tagline, description, campaign_img, campaign_video, feature, feature_img, goal_amount,  DATE_FORMAT(goal_date, '%d %M %Y')  as goal_d , bsb,account, bkash, rocket, nagad, upay, perk_title, perk_description, perk_img, perk_price, perk_retail_price, perk_date, fb_url,twitter_url,yt_url, website_url,amount_raised,is_prelaunch,is_business,is_personal,is_approved, no_followers,no_donors FROM campaigns WHERE is_approved=0`
+  const sql = `SELECT campaigns.id,campaigns.email,title,city,state,type,tagline, description, campaign_img, campaign_video, feature, feature_img, goal_amount,  DATE_FORMAT(goal_date, '%d %M %Y')  as goal_d , bsb,account, bkash, rocket, nagad, upay, perk_title, perk_description, perk_img, perk_price, perk_retail_price, perk_date, fb_url,twitter_url,yt_url, website_url,amount_raised,is_prelaunch,is_business,is_personal,is_approved, no_followers,no_donors,nid_front,nid_back,passport,business_plan,project_budget,product_prototype,legal_entity_verification,financial_statements,intellectual_property,permits,contracts,extras FROM campaigns INNER JOIN docs ON campaigns.id=docs.bid WHERE is_approved=0`
 
   const [rows, fields] = await pool.execute(sql) // Replace 'campaigns' with your table name
   return rows
@@ -106,6 +106,16 @@ async function approveCampaign(id) {
  }
 }
 
+async function getDocsById(campaignId) {
+ try {
+  const sql = `SELECT * from docs where id = ?`
+  const [rows, fields] = await pool.execute(sql, [campaignId]) // Replace 'campaigns' with your table name
+  return rows
+ } catch (error) {
+  throw error
+ }
+}
+
 
 
 
@@ -118,4 +128,5 @@ module.exports = {
  createAdmin,
  deleteUser,
  declineCampaign,
+ getDocsById,
 }

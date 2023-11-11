@@ -9,8 +9,8 @@ const projectController = require('./projectController') // Import the file cont
 const browseRoutes = require('./browseRoutes') 
 const browseController = require('./browseController') 
 const userModel = require('../models/userModel') // Import userModel functions
-const fileModel = require('../models/fileModel')
-const projectModel = require('../models/projectModel')
+const donationController = require('./donationController')
+const donationRoutes = require('./donationRoutes')
 const followController = require('./followController')
 const followRoutes = require('./followRoutes')
 const adminController = require('./adminController')
@@ -91,10 +91,7 @@ router.get(
   projectController.getPrelaunchCampaign
 )
 router.get('/campaign/personal/:campaignId', projectController.getPersonal)
-// router.get(
-//   '/campaign/:campaignId',
-//   projectController.getPersonal
-// )
+
 
 // Include authentication routes from authController
 router.use('/auth', authController)
@@ -102,7 +99,23 @@ router.use('/file', fileController)
 router.use('/browse', browseRoutes)
 router.use('/follow', followRoutes)
 router.use('/admin', adminRoutes)
+router.use('/donation', donationController)
+router.use('/donation2', donationRoutes)
 
+router.get('/donation', async (req, res) => {
+  console.log("campaignId", req.query.campaignId);
+  res.render('donation', { user: req.session.user , campaignId: req.query.campaignId});
+})
+router.post("/ssl-payment/success/:tranId", async (req, res) => {
+  const tranId = req.params.tranId;
+  console.log(tranId);
+  res.render('Success', { user: req.session.user });
+});
+
+
+router.post("/ssl-payment/failure", async (req, res) => {
+  res.render('Failure', { user: req.session.user });
+});
 
 
 router.get('/sort/amount', browseController.sortByHighestAmount)
@@ -119,7 +132,8 @@ router.get('/DonatedCampaigns', followController.getBackedCampaignsProfile)
 // testing
 router.get('/users', adminController.getUsers)
 router.get('/unapprovedCampaigns', adminController.getNotApprovedCampaigns)
-// router.get('/approveCampaign/:campaignId', adminController.approveCampaign)
-
+router.get('/documents/:campaignId', adminController.getDocumentsOfCampaign)
+router.get('/register-admin', adminController.AddAdmin)
+router.get('/edit-profile', followController.editProfile)
 
 module.exports = router
