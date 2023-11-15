@@ -1,10 +1,14 @@
 const express = require('express')
 
-const sessionStore = require('../models/sessionStore') // Import the sessionStore setup
+const sessionStore = require('../models/sessionStore')
+// Import the sessionStore setup
 
 
 // Controller function to get a specific record by id
 const projectModel = require('../models/projectModel')
+const followModel = require('../models/followModel')
+const donationModel = require('../models/donationModel')
+
 async function getBrowseCampaigns(req, res) {
     try {
         const campaigns = await projectModel.getCampaignsPersonal()
@@ -36,9 +40,24 @@ async function getPersonal(req, res) {
     try {
         // Get campaign details by campaignId using your model function
         const campaign = await projectModel.getPersonalById(campaignId);
+        const followState = await followModel.checkIfFollowing(req.session.user.email, campaignId);
+        const donationState = await donationModel.checkIfBacked(req.session.user.email, campaignId);
         console.log(campaign)
+
+        console.log(followState)
         // Render the campaign page with campaign data
-        res.render('view-campaign(1)', { user: req.session.user, campaign });
+        res.render('view-campaign', { user: req.session.user, campaign, followState, donationState });
+
+    } catch (error) {
+        console.error('Error fetching campaign data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+async function getReportForm(req, res) {
+    try {
+        const campaignId = req.params.campaignId;
+        res.render('report-form', { user: req.session.user, campaignId });
 
     } catch (error) {
         console.error('Error fetching campaign data:', error);
@@ -48,11 +67,15 @@ async function getPersonal(req, res) {
 
 
 
+
+
 module.exports = {
     // testBrowseCampaigns,
     getBrowseCampaigns,
     getPrelaunchCampaign,
     // getCampaign,
     getPersonal,
+    getReportForm
+
 }
 

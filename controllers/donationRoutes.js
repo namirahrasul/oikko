@@ -23,11 +23,7 @@ router.post('/submit', async (req, res) => {
     console.error('Invalid donor or cid value');
     // Handle the error or return an error response
   }
-  // else {
-  //   res.redirect('/donation', { user: req.session.user, donor: donor, cid: cid })
-  // }
 });
-
 
 
 module.exports = router

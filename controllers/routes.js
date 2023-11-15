@@ -2,20 +2,24 @@ const express = require('express')
 const fs = require('fs')
 const router = express.Router()
 const path = require('path')
+const bodyParser = require('body-parser');
 
 const authController = require('./authController') // Import the authentication controller
 const fileController = require('./fileController')
 const projectController = require('./projectController') // Import the file controller
-const browseRoutes = require('./browseRoutes') 
-const browseController = require('./browseController') 
+const browseRoutes = require('./browseRoutes')
+const browseController = require('./browseController')
 const userModel = require('../models/userModel') // Import userModel functions
 const donationController = require('./donationController')
 const donationRoutes = require('./donationRoutes')
+const donationModel = require('../models/donationModel')
+const donationNotification = require('./donationNotification')
 const followController = require('./followController')
 const followRoutes = require('./followRoutes')
 const adminController = require('./adminController')
 const adminRoutes = require('./adminRoutes')
-
+const profileRoutes = require('./profileRoutes')
+const profileController = require('./profileController')
 // router.use("/uploads", express.static(path.join(__dirname, "../uploads")))
 
 // Home page route
@@ -101,14 +105,43 @@ router.use('/follow', followRoutes)
 router.use('/admin', adminRoutes)
 router.use('/donation', donationController)
 router.use('/donation2', donationRoutes)
+router.use('/profile', profileRoutes)
 
 router.get('/donation', async (req, res) => {
   console.log("campaignId", req.query.campaignId);
-  res.render('donation', { user: req.session.user , campaignId: req.query.campaignId});
+  res.render('donation', { user: req.session.user, campaignId: req.query.campaignId });
 })
-router.post("/ssl-payment/success/:tranId", async (req, res) => {
+router.get('/success', async (req, res) => {
+
+  res.render('success');
+})
+router.post("/ssl-payment/success/:tranId/:cid/:donation/:mail", async (req, res) => {
   const tranId = req.params.tranId;
   console.log(tranId);
+
+  const cid = req.params.cid;
+  console.log(cid);
+
+  const donation = req.params.donation;
+  console.log(donation);
+
+  const mail = req.params.mail;
+  console.log(mail);
+
+  if (!mail || !cid) {
+    console.error('Invalid donor or cid value');
+    // Handle the error or return an error response
+  }
+  else {
+    const result = await donationModel.insertDonationData(mail, cid, donation);
+    const result2 = await donationModel.updateCampaignDonorsById(cid);
+    const result3 = await donationModel.increaseAmountRaised(cid);
+    console.log("result");
+    console.log(result)
+    console.log("result2", result2);
+    console.log("result3");
+    console.log(result3);
+  }
   res.render('Success', { user: req.session.user });
 });
 
@@ -127,13 +160,16 @@ router.get('/filter', browseController.filterByCategory)
 router.get('/notification', followController.getNotifications)
 router.get('/MyCampaigns', followController.getMyCampaignsProfile)
 router.get('/FollowedCampaigns', followController.getFollowedCampaignsProfile)
-router.get('/DonatedCampaigns', followController.getBackedCampaignsProfile)
+router.get('/DonatedCampaigns', donationNotification.getBackedCampaignsProfile)
 
-// testing
+
 router.get('/users', adminController.getUsers)
 router.get('/unapprovedCampaigns', adminController.getNotApprovedCampaigns)
 router.get('/documents/:campaignId', adminController.getDocumentsOfCampaign)
 router.get('/register-admin', adminController.AddAdmin)
-router.get('/edit-profile', followController.editProfile)
+router.get('/edit-profile', profileController.editProfile)
 
+// testing
+router.get('/report/:campaignId', projectController.getReportForm)
+router.get('/accepted-report', projectController.getAcceptedReport)
 module.exports = router

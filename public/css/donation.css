@@ -10,16 +10,34 @@
     display: flex;
   }
 .paybtn {
-    padding: 10px 60px;
+    padding: 10px 10px;
     background: #0c2f39; 
     border: 0;
     outline: none;
     cursor: pointer;
     font-size: 22px;
     font-weight: 500;
-    border-radius: 30px;
+    border-radius: 20px;
     
 }
+.dangerbtn {
+    padding: 10px 10px;
+    background: #fd0202; 
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 500;
+    border-radius: 20px;
+    
+}
+.dangerbtn a{
+    color: #fff;
+    text-decoration: none;
+
+}
+
+
 
 .popup{
     /* width: auto; */

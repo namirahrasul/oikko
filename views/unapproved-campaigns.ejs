@@ -8,8 +8,12 @@
         <div class="notifnav">
           <ul>
             <li><a href="#" class="notiflogo notifa">
-                <img src="/images/Cryuff.jpg" alt="">
-                <span class="notifnav-item">DashBoard</span>
+                <% if (user.profile_img==null){ %>
+                  <img src="/images/default.jpg" alt="Profile">
+                  <% } else { %>
+                    <img src="/uploads/<%=user.profile_img%>" alt="Profile">
+                    <% } %>
+                      <span class="notifnav-item">DashBoard</span>
               </a>
             </li>
 
@@ -69,6 +73,8 @@
 
           </div>
 
+<!-- Main Part of this page -->
+
 
           <section class="main-course">
             <!-- <h1><b>My Story</b></h1> -->
@@ -84,113 +90,129 @@
                       <% if(campaigns.length==0) { %>
                         <p>No campaigns need approval</p>
                         <% } else {%>
-                          <div class="row justify-content-between">
-                            <div class="col-1">
-                              <h4>ID</h4>
+                          <br>
+                          <div class="row justify-content-between  ">
+                            <div class="col-1 padID">
+                              <h4 class="hedsUp">ID</h4>
                             </div>
-                            <div class="col-2 ">
-                              <h4>Title</h4>
+                            <div class="col-2 padTitle">
+                              <h4 class="hedsUp">Title</h4>
                             </div>
-                            <div class="col-3">
-                              <h4>Creator</h4>
+                            <div class="col-3 padCreator">
+                              <h4 class="creatorh4 hedsUp">Creator</h4>
                             </div>
-                            <div class="col-2">
-                              <h4>View</h4>
+                            <div class="col-2 padView">
+                              <h4 class="viewh4 hedsUp">View</h4>
                             </div>
-                            <div class="col-2">
-                              <h4>Documents</h4>
+                            <div class="col-2 padDocuments">
+                              <h4 class="hedsUp">Documents</h4>
                             </div>
-                            <div class="col-1">
-                              <h4>Approve</h4>
+                            <div class="col-1 padApprove">
+                              <h4 class="hedsUp">Approve</h4>
                             </div>
-                            <div class="col-1">
-                              <h4>Decline</h4>
+                            <div class="col-1 padDecline">
+                              <h4 class="hedsUp">Decline</h4>
                             </div>
 
 
 
-                            <% for (let i=0; i < campaigns.length; i++) { %>
-                              <div class="row justify-content-between">
+                            <% for (let i=0; i!=campaigns.length; i++) { %>
+                              <div class="row justify-content-between borderInfo ">
                                 <div class="col-1">
                                   <%=campaigns[i].id%>
                                 </div>
                                 <div class="col-3">
                                   <%=campaigns[i].title%>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-2 emailLeft">
                                   <%=campaigns[i].email%>
                                 </div>
                                 <% if (campaigns[i].is_prelaunch) { %>
                                   <div class="col-2">
-                                    <a href="/campaign/prelaunch/<%=campaigns[i].id%>"
-                                      class="btn btn-sm btn-dark me-1 col-1">View</a>
+                                    <a class="btn btn-sm btn-dark me-1 "
+                                      href="/campaign/prelaunch/<%=campaigns[i].id%>">View</a>
                                   </div>
                                   <div class="col-2">
-                                    <a href="#" class="btn btn-sm me-1 col-1 btn-dark disabled ">Documents</a>
+                                    <button class="btn btn-sm me-1 btn-dark " disabled>Documents</button>
                                   </div>
                                   <% } else { %>
                                     <div class="col-2">
                                       <a href="/campaign/personal/<%=campaigns[i].id%>"
-                                        class="btn btn-sm btn-dark me-1 col-1 ">View</a>
+                                        class="btn btn-sm btn-dark me-1 viewButton buttonGameBlack">View</a>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-2 checkDoc">
                                       <div class="btn-group">
-                                        <button class="btn btn-secondary btn-sm dropdown-toggle unapproved-dropdown" type="button" data-bs-toggle="dropdown"
-                                          aria-expanded="false">
+                                        <button class="btn btn-dark btn-sm dropdown-toggle unapproved-dropdown docButton buttonGameBlack"
+                                          type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                           Documents
                                         </button>
                                         <ul class="unapproved-dropdown-menu dropdown-menu">
                                           <% if (campaigns[i].nid_front) { %>
-                                            <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].nid_front%>" target="_blank">NID Frontside</a></li>
+                                            <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].nid_front%>"
+                                                target="_blank">NID Frontside</a></li>
                                             <% } %>
                                               <% if (campaigns[i].nid_back) { %>
-                                                <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].nid_back%>" target="_blank">NID
+                                                <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].nid_back%>"
+                                                    target="_blank">NID
                                                     Backside</a></li>
                                                 <% } %>
                                                   <% if (campaigns[i].passport) { %>
-                                                    <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].passport%>" target="_blank">Passport</a></li>
+                                                    <li><a class="dropdown-item"
+                                                        href="/uploads/<%= campaigns[i].passport%>"
+                                                        target="_blank">Passport</a></li>
                                                     <% } %>
                                                       <% if (campaigns[i].business_plan) { %>
-                                                        <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].business_plan%>" target="_blank">Business
+                                                        <li><a class="dropdown-item"
+                                                            href="/uploads/<%= campaigns[i].business_plan%>"
+                                                            target="_blank">Business
                                                             Plan</a>
                                                         </li>
                                                         <% } %>
                                                           <% if (campaigns[i].project_budget) { %>
-                                                            <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].project_budget%>" target="_blank">Project
+                                                            <li><a class="dropdown-item"
+                                                                href="/uploads/<%= campaigns[i].project_budget%>"
+                                                                target="_blank">Project
                                                                 Budget</a></li>
                                                             <% } %>
                                                               <% if (campaigns[i].product_prototype) { %>
-                                                                <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].product_prototype%>"
+                                                                <li><a class="dropdown-item"
+                                                                    href="/uploads/<%= campaigns[i].product_prototype%>"
                                                                     target="_blank">Product
                                                                     Prototype</a></li>
                                                                 <% } %>
                                                                   <% if (campaigns[i].legal_entity_verification) { %>
-                                                                    <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].legal_entity_verification%>"
+                                                                    <li><a class="dropdown-item"
+                                                                        href="/uploads/<%= campaigns[i].legal_entity_verification%>"
                                                                         target="_blank">Legal Entity
                                                                         Prototype</a></li>
                                                                     <% } %>
                                                                       <% if (campaigns[i].financial_statements){ %>
-                                                                        <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].financial_statements%>"
+                                                                        <li><a class="dropdown-item"
+                                                                            href="/uploads/<%= campaigns[i].financial_statements%>"
                                                                             target="_blank">Financial
                                                                             Statements</a></li>
                                                                         <% } %>
                                                                           <% if(campaigns[i].intellectual_property){ %>
-                                                                            <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].intellectual_property%>"
+                                                                            <li><a class="dropdown-item"
+                                                                                href="/uploads/<%= campaigns[i].intellectual_property%>"
                                                                                 target="_blank">Intellectual
                                                                                 Property</a></li>
                                                                             <% } %>
                                                                               <% if(campaigns[i].permits){%>
-                                                                                <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].permits%>"
+                                                                                <li><a class="dropdown-item"
+                                                                                    href="/uploads/<%= campaigns[i].permits%>"
                                                                                     target="_blank">Permits</a>
                                                                                 </li>
                                                                                 <% } %>
                                                                                   <% if(campaigns[i].contracts){%>
-                                                                                    <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].contracts%>"
+                                                                                    <li><a class="dropdown-item"
+                                                                                        href="/uploads/<%= campaigns[i].contracts%>"
                                                                                         target="_blank">Contracts</a>
                                                                                     </li>
                                                                                     <% } %>
                                                                                       <% if(campaigns[i].extras){%>
-                                                                                        <li><a class="dropdown-item" href="/uploads/<%= campaigns[i].extras%>"
+                                                                                        <li><a class="dropdown-item"
+                                                                                            href="/uploads/<%= campaigns[i].extras%>"
                                                                                             target="_blank">Miscellanious</a>
                                                                                         </li>
                                                                                         <% } %>
@@ -200,20 +222,20 @@
                                     </div>
                                     <%}%>
 
-                                      <form id="approve-form" class="col-1"
+                                      <form id="approve-form-<%= campaigns[i].id %>" class="col-1"
                                         action="/admin/approveCampaign/<%=campaigns[i].id%>" method="post">
-                                        <button form="approve-form" type="submit"
-                                          class="btn btn-sm btn-success ">Approve</button>
+                                        <button form="approve-form-<%= campaigns[i].id %>" type="submit"
+                                          class="btn btn-sm btn-success approveButtonCheck viewButtonApprove">Approve</button>
                                       </form>
-                                      <form id="decline-form" class="col-1"
+                                      <form id="decline-form-<%= campaigns[i].id %>" class="col-1"
                                         action="/admin/declineCampaign/<%=campaigns[i].id%>" method="post">
-                                        <button type="submit" form="decline-form"
-                                          class="btn btn-sm btn-danger">Decline</button>
+                                        <button type="submit" form="decline-form-<%= campaigns[i].id %>"
+                                          class="btn btn-sm btn-danger viewButtonDecline">Decline</button>
                                       </form>
                               </div>
                               <div class="row">
                                 <div class="col-12">
-                                  <hr>
+                                  <br>
                                 </div>
                               </div>
                               <% } %>

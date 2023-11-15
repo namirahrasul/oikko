@@ -32,7 +32,7 @@ async function getMyCampaignsProfile(req, res) {
     try {
       // Get notification details by email using your model function
       const campaigns = await followModel.getMyCampaign(myCamp);
-      console.log(campaigns);
+      //console.log(campaigns);
       if (campaigns === null) {
             // Handle the case where no notification data is found
             // You can render the page without that information or show a message
@@ -68,17 +68,12 @@ async function getFollowedCampaignsProfile(req, res){
   }
 }
 
-async function getBackedCampaignsProfile(req, res) {
-  res.render('DonatedCampaigns', { user: req.session.user });
-}
 
-async function editProfile(req, res) {
-  res.render('edit-profile', { user: req.session.user });
-}
+
+
 module.exports = {
   getNotifications,
   getMyCampaignsProfile,
   getFollowedCampaignsProfile,
-  getBackedCampaignsProfile,
-  editProfile
+
   }

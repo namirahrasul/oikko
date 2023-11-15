@@ -19,13 +19,17 @@
                 </p>
               </div>
               <div class="col-2 text-end">
-              <% if (user) { %>
                 <div class=" d-flex">
-                  <button id="goToDonationPage" class="btn btn-success btn-lg me-4">Donate</button>
-                  <button id="followButton" class="btn btn-warning btn-lg " @click="toggleFollow">{{ isFollowing ?
-                    'Unfollow' : 'Follow' }}</button>
+                  <% if (user) { %>
+                    <button id="goToDonationPage" class="btn btn-success me-2" @click="toggleDonor"><a href="/donation?campaignId=<%=campaign.id%>" style="color: white; text-decoration: none;">{{ isBacked ?
+                    'Funded' : 'Fund' }}</a></button>
+                  
+                    <button id="followButton" class="btn btn-warning me-2 " @click="toggleFollow">{{ isFollowing ?
+                      'Unfollow' : 'Follow' }}</button>
+                    <button id="reportButton" class="btn btn-danger me-2 "><a href="/report/<%=campaign.id%>" style="color: white; text-decoration: none;">Report</button>
+                    <% } %>
+                    
                 </div>
-                <% } %>
               </div>
             </div>
           </div>
@@ -95,6 +99,23 @@
             </div>
           </div>
         </div>
+
+        <!-- <div class="container-fluid p-5 w-75">
+        <div class="row welcome text-center ">
+          <div class="col-12">
+            <h2 class="display-4 pb-4 text-black-50">
+              Why Choose Us?
+            </h2>
+            <div class=" align-content-center ">
+              <p class="d-block fs-4 mb-3 text-black lead" id="main-feature">
+                <%=campaign.feature%>
+              </p>
+              <img src="/uploads/<%=campaign.feature_img%>" alt="main-feature-image"
+                class="d-block img-fluid" />
+            </div>
+          </div>
+        </div>
+      </div> -->
         <div class="container-fluid p-4 bg-danger">
           <div class="d-flex flex-column align-items-center justify-content-center">
             <h2 class="text-white display-4 pb-2">Perks</h2>
@@ -159,25 +180,37 @@
           integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
           crossorigin="anonymous"></script>
         <script>
+          const initialIsFollowing = false;
+          const initialIsBacked = false;
           const goalAmount = parseFloat('<%= campaign.goal_amount %>');
           const cid = '<%= campaign.id %>';
-          const city = '<%= campaign.city %>';
-          const state = '<%= campaign.state %>';
-          const amountBacked = parseFloat('<%= campaign.amount_raised %>');
+          const backedAmount = parseFloat('<%= campaign.amount_raised %>');
           new Vue({
             el: '#app',
             data: {
-              isFollowing: false,
-              amountRaised: amountBacked,
+              isFollowing: initialIsFollowing,
+              isBacked: initialIsBacked,
+              amountRaised: backedAmount,
               totalGoal: goalAmount,// Set the initial amount raised here
-              city: 'Gazipur', // Set the city here
-              state: 'Dhaka', // Set the state here
               following: cid,
             },
             methods: {
               toggleFollow() {
                 this.isFollowing = !this.isFollowing
-                this.sendData();
+                if(!this.isFollowing)
+                {
+                  // If already following, unfollow and delete data
+                  this.removeFromFollowTable();
+                }
+                else
+                {
+                  this.sendData();
+                }
+                // this.sendData();
+              },
+              toggleDonor(){
+                if(this.isBacked)
+                  this.sendDataDonor();
               },
               sendData() {
                 // Use the inputValue from the data
@@ -198,6 +231,43 @@
                     console.log(error);
                   });
               },
+
+              removeFromFollowTable(){
+                // Use the inputValue from the data
+                const data = { test: this.following };
+
+                fetch("/follow/delete", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(data),
+                })
+                  .then((response) => response.json())
+                  // .then((responseData) => {
+                  //   console.log(responseData);
+                  // })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              },
+
+              sendDataDonor(){
+                // Use the inputValue from the data
+                const data = { test: cid };
+
+                fetch("/donation2/submit", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(data),
+                })
+                  .then((response) => response.json())
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }
             },
             computed: {
               sliderPercentage() {

@@ -53,7 +53,7 @@ display: block;
   margin-right: 60px;
 }
 
-.notiflogo span{
+.notiflogo>span{
   font-weight: bold;
   padding-left: 15px;
   font-size: 18px;
@@ -116,11 +116,8 @@ display: block;
   text-align: center;
 }
 
-.profile-card img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
+
+
 
 .profile-card button {
   padding: 10px 20px;
@@ -129,10 +126,46 @@ display: block;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-} */
+}
 
 
-.campaign-card-img-container {
+.campaigns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    height: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Vertically space contents evenly */
+    width: 340px;
+   
+    padding: 3px 8px 3px 8px; /* Top padding reduced to create space above the button */
+}
+
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+}
+
+.card-title {
+    /* font-weight: bold; */
+}
+
+.campaign-info {
+    flex-grow: 1; /* This allows it to take up available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Vertically space title and tagline */
+}
+
+.card-img-container {
     flex: 1; /* Allow the image to grow or shrink within the available space */
     display: flex;
     align-items: center; /* Center the image vertically */
@@ -145,43 +178,8 @@ display: block;
     flex-direction: column;
     gap: 10px; /* Increased space between tagline and button */
 }
-.campaign-card button {
+.card button {
      /* Increased margin above the button */
-}
-.campaigns {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.campaign-card {
-    height: 520px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between; /* Vertically space contents evenly */
-    width: 360px;
-   
-    padding: 3px 8px 3px 8px; /* Top padding reduced to create space above the button */
-}
-
-
-.campaign-card img {
-    max-width: 100%;
-    height: auto;
-    max-height: 200px;
-}
-
-.campaign-card-title {
-    font-weight: 700;
-}
-
-.campaign-info {
-    flex-grow: 1; /* This allows it to take up available space */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Vertically space title and tagline */
 }
 
 /* Main Section */
@@ -363,3 +361,70 @@ display: block;
 .dashss{
     color: red;
 }
+.rightalign{
+  text-align: right;
+} 
+
+.expand{
+  width: 1200px;
+}
+
+.fixSize{
+  height: 550px;
+}
+
+.boldforName{
+  font-weight: bold;
+  color: #005571;
+}
+
+
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #a4a4a4;
+  z-index: 9;
+   border-radius: 15px;
+}
+/* Add styles to the form container */
+.form-container {
+  max-width: 400px;
+  padding: 20px;
+  background-color: white;
+    border: 1px solid #a4a4a4;
+     border-radius: 15px;
+  
+}
+
+
+/* Set a style for the submit/login button */
+/* .form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+/*.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}  */

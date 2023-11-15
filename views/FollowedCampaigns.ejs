@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <%- include('head.ejs', { title: 'Notifications' , stylesheet: '/css/notif.css' }) %>
+  <%- include('head.ejs', { title: 'Followed Campaigns' , stylesheet: '/css/notif.css' }) %>
 </head>
 
 <body>
@@ -11,7 +11,11 @@
       <div class="notifnav">
         <ul>
           <li><a href="#" class="notiflogo notifa">
-              <img src="/images/Cryuff.jpg" alt="">
+              <% if (user.profile_img==null){ %>
+                <img src="/images/default.jpg" alt="Profile">
+                <% } else { %>
+                  <img src="/uploads/<%=user.profile_img%>" alt="Profile">
+                  <% } %>
               <span class="notifnav-item">DashBoard</span>
             </a>
           </li>
@@ -29,7 +33,7 @@
               <i class="fas fa-thumbs-up"></i>
               <span class="notifnav-item">Followed Campaigns</span>
             </a></li>
-          <li><a href="#" class="notifa">
+          <li><a href="/DonatedCampaigns" class="notifa">
               <i class="fas fa-user"></i>
               <span class="notifnav-item">Backed Campaigns</span>
             </a></li>

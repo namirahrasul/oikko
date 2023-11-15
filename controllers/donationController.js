@@ -1,5 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const bodyParser = require('body-parser');
+const donationModel = require('../models/donationModel')
+
+router.use(express.json())
+router.use(bodyParser.urlencoded({ extended: false }));
 
 const SSLCommerzPayment = require('sslcommerz-lts');
 const { v4: uuidv4 } = require('uuid');
@@ -24,12 +29,13 @@ router.post('/submit-donation', (req, res) => {
     console.log("email");
     console.log(mail);
     console.log("req.body.test");
-    const cid = req.body.test;
+    const cid = req.body.campaignId;
+    // const cid = req.query.campaignId;
     console.log(cid);
     
     console.log(req.session.user.name);
 
-    const donation = req.body;
+    const donation = req.body.donation;
 
     console.log('Donation Amount:', req.body.donation);
 
@@ -37,10 +43,10 @@ router.post('/submit-donation', (req, res) => {
         total_amount: req.body.donation,
         currency: 'BDT',
         tran_id: tran_id, // use a unique tran_id for each API call
-        success_url: `http://localhost:3000/ssl-payment/success/${tran_id}`,
-        fail_url: `http://localhost:3000/ssl-payment/failure`,
-        cancel_url: 'http://localhost:3000/cancel',
-        ipn_url: 'http://localhost:3000/ipn',
+        success_url: `http://localhost:3010/ssl-payment/success/${tran_id}/${cid}/${donation}/${mail}`,
+        fail_url: `http://localhost:3010/ssl-payment/failure`,
+        cancel_url: 'http://localhost:3010/cancel',
+        ipn_url: 'http://localhost:3010/payment-success',
         shipping_method: 'Courier',
         product_name: 'Computer.',
         product_category: 'Crowdfunding',
@@ -66,6 +72,16 @@ router.post('/submit-donation', (req, res) => {
 
     console.log(data);
 
+    const PaymentData = { 
+        cid: cid,
+        donation: req.body.donation,
+        email: mail
+    };
+
+    req.session.PaymentData = PaymentData;
+
+    console.log(PaymentData);
+
     const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
     sslcz.init(data).then(apiResponse => {
         // Redirect the user to payment gateway
@@ -73,23 +89,8 @@ router.post('/submit-donation', (req, res) => {
         console.log(GatewayPageURL);
         res.redirect(GatewayPageURL)
         console.log('Redirecting to: ', GatewayPageURL)
-
-        // const finalOrder={
-        //     paidStatus:false, transactionId: tran_id
-        // }
     });
 });
-
-
-// router.post("/ssl-payment/success", async(req,res) => {
-//     return res.status(200).json({
-//         data: req.body,
-//     });
-// });
-
-
-
-
 
 
 module.exports = router
