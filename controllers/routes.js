@@ -169,7 +169,7 @@ router.get('/documents/:campaignId', adminController.getDocumentsOfCampaign)
 router.get('/register-admin', adminController.AddAdmin)
 router.get('/edit-profile', profileController.editProfile)
 
-// testing
-router.get('/report/:campaignId', projectController.getReportForm)
-router.get('/accepted-report', projectController.getAcceptedReport)
+
+
+
 module.exports = router
