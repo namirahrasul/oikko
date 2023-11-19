@@ -119,7 +119,60 @@ async function getDocsById(campaignId) {
  }
 }
 
+async function getNotApprovedReports() {
+ try {
+  const sql = `SELECT
+  reports.id as rid,
+  campaign_id,
+  reports.email,
+  reports.title,
+  reports.description,
+  evidence,
+  reports.time,
+  users.name,
+  is_prelaunch,
+  is_personal,
+  is_business
+FROM
+  users
+INNER JOIN
+  reports ON users.email = reports.email
+INNER JOIN
+  campaigns ON campaigns.id = reports.campaign_id
+WHERE
+  reports.is_approved = 0`
 
+  const [rows, fields] = await pool.execute(sql) // Replace 'campaigns' with your table name
+  return rows
+ } catch (error) {
+  throw error
+ }
+}
+
+async function markCampaignReviewed(id,email) {
+ try {
+  const sql =
+   'UPDATE reports set is_approved=1 WHERE id = ?'
+  const [rows, fields] = await pool.execute(sql, [id]);
+  const sql2 =
+   'INSERT INTO reported_notifs (email,rid) VALUES  (?,?)'
+  const [rows2, fields2] = await pool.execute(sql2, [email,id]);
+  return rows.affectedRows; // Return the number of affected rows (1 if successful, 0 if no rows were updated)
+ } catch (error) {
+  console.error('Error declining campaign', error);
+  throw error;
+ }
+}
+
+async function getReportById(id) {
+ try {
+  const sql = `SELECT * from reports where id = ?`;
+  const [rows, fields] = await pool.execute(sql, [id]);
+  return rows[0];
+ } catch {
+  throw error;
+ }
+}
 
 
 
@@ -132,4 +185,7 @@ module.exports = {
  deleteUser,
  declineCampaign,
  getDocsById,
+ getNotApprovedReports,
+ markCampaignReviewed,
+ getReportById
 }

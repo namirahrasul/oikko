@@ -428,3 +428,13 @@ display: block;
 /*.form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }  */
+
+.reporter-name{
+  text-decoration: none;
+  color: #000;
+}
+
+.report-btn{
+  text-decoration: none;
+  color: #fff;
+}

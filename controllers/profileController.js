@@ -7,7 +7,8 @@ async function deleteCampaign(req, res) {
  res.render('delete-campaign', { user: req.session.user, campaignId: myCamp });
 }
 
+
 module.exports = {
  editProfile,
- deleteCampaign
+ deleteCampaign,
 }

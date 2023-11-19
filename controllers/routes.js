@@ -170,6 +170,9 @@ router.get('/register-admin', adminController.AddAdmin)
 router.get('/edit-profile', profileController.editProfile)
 
 
-
+router.get('/report/:campaignId', adminController.getReportForm)
+router.get('/accepted-report', adminController.getAcceptedReport)
+router.get('/reported-campaigns', adminController.getReportedCampaigns)
+router.get('/view-report/:rid', adminController.viewCampaignReport)
 
 module.exports = router

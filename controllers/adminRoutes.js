@@ -50,4 +50,19 @@ router.post('/approveCampaign/:campaignId', async (req, res) => {
  }
 })
 
+router.post('/review/:rId', async (req, res) => {
+ const id = req.params.rId
+ console.log(id)
+ try {
+  const affectedRows = await adminModel.markCampaignReviewed(id,email);
+  console.log(affectedRows);
+  // const campaigns = await adminModel.getNotApprovedCampaigns();
+  res.redirect('/reported-campaigns');
+
+
+ } catch (error) {
+  console.error('Error declining campaign:', error);
+ }
+})
+
 module.exports = router

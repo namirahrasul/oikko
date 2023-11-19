@@ -26,7 +26,7 @@ async function getPrelaunchCampaign(req, res) {
     try {
         // Get campaign details by campaignId using your model function
         const campaign = await projectModel.getPersonalById(campaignId);
-        console.log(campaign)
+        
         // Render the campaign prelaunch page with campaign data
         res.render('view-prelaunch', { user: req.session.user, campaign })
     } catch (error) {
@@ -42,22 +42,11 @@ async function getPersonal(req, res) {
         const campaign = await projectModel.getPersonalById(campaignId);
         const followState = await followModel.checkIfFollowing(req.session.user.email, campaignId);
         const donationState = await donationModel.checkIfBacked(req.session.user.email, campaignId);
-        console.log(campaign)
+        
 
-        console.log(followState)
+        
         // Render the campaign page with campaign data
         res.render('view-campaign', { user: req.session.user, campaign, followState, donationState });
-
-    } catch (error) {
-        console.error('Error fetching campaign data:', error);
-        res.status(500).send('Internal Server Error');
-    }
-}
-
-async function getReportForm(req, res) {
-    try {
-        const campaignId = req.params.campaignId;
-        res.render('report-form', { user: req.session.user, campaignId });
 
     } catch (error) {
         console.error('Error fetching campaign data:', error);
@@ -75,7 +64,6 @@ module.exports = {
     getPrelaunchCampaign,
     // getCampaign,
     getPersonal,
-    getReportForm
 
 }
 

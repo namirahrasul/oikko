@@ -59,7 +59,48 @@ async function getDocumentsOfCampaign(req, res) {
 async function AddAdmin(req, res) {
   res.render('register-admin', { user: req.session.user });
 }
+async function getReportForm(req, res) {
+  try {
+    const campaignId = req.params.campaignId;
+    res.render('report-form', { user: req.session.user, campaignId });
 
+  } catch (error) {
+    console.error('Error fetching campaign data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+}
+async function getAcceptedReport(req, res) {
+  res.render('accepted-report', { user: req.session.user });
+}
+
+async function getReportedCampaigns(req, res) {
+
+  try {
+    // Get notification details by email using your model function
+    const reports = await adminModel.getNotApprovedReports();
+    // console.log(campaigns);
+    res.render('reported-campaigns', { user: req.session.user, reports });
+  }
+
+  catch (error) {
+    console.error('Error fetching campaign data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+}
+
+async function viewCampaignReport(req, res) {
+  const rid = req.params.rid;
+  try {
+    const reportId = rid;
+    const report = await adminModel.getReportById(reportId);
+    console.log(report);
+    res.render('sent-report', { user: req.session.user, report });
+
+  } catch (error) {
+    console.error('Error fetching campaign data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+}
 
 
 
@@ -68,5 +109,9 @@ module.exports = {
   getNotApprovedCampaigns,
   getUsers,
   getDocumentsOfCampaign,
+  getReportForm,
+  getAcceptedReport,
+  getReportedCampaigns,
+  viewCampaignReport
 
 }
