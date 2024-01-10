@@ -8,10 +8,10 @@
         <div class="notifnav">
           <ul>
             <li><a href="#" class="notiflogo notifa">
-                <% if (user.profile_img==null){ %>
-                  <img src="/images/default.jpg" alt="Profile">
+                <% if (profile.profile_img){ %>
+                  <img src="/uploads/<%=profile.profile_img%>" alt="Profile">
                   <% } else { %>
-                    <img src="/uploads/<%=user.profile_img%>" alt="Profile">
+                    <img src="/images/default.jpg" alt="Profile">
                     <% } %>
                       <span class="notifnav-item">DashBoard</span>
               </a>
@@ -42,6 +42,14 @@
               <li><a href="/reported-campaigns" class="notifa">
                   <i class="fas fa-users"></i>
                   <span class="notifnav-item">Reported Campaigns</span>
+                </a></li>
+              <li><a href="/delete-requests" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Delete Requests</span>
+                </a></li>
+              <li><a href="/edit-requests" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Edit Requests</span>
                 </a></li>
               <li><a href="/users" class="notifa">
                   <i class="fas fa-users"></i>
@@ -133,21 +141,24 @@
                                 </div>
                                 <% if (campaigns[i].is_prelaunch) { %>
                                   <div class="col-2">
-                                    <a class="btn btn-sm btn-dark me-1 "
-                                      href="/campaign/prelaunch/<%=campaigns[i].id%>">View</a>
+                                    <a class="btn btn-sm btn-dark me-1 viewButton buttonGameBlack"
+                                      href="/campaign/prelaunch/<%=campaigns[i].id%>" target="_blank">View</a>
                                   </div>
-                                  <div class="col-2">
-                                    <button class="btn btn-sm me-1 btn-dark " disabled>Documents</button>
+                                  <div class="col-2 checkDoc">
+                                    <div class="button-group">
+                                    <button class="btn btn-dark btn-sm dropdown-toggle unapproved-dropdown docButton buttonGameBlack" disabled style="width:105px;">Documents</button>
+                                    <ul class="unapproved-dropdown-menu dropdown-menu"></ul>
+                                    </div>
                                   </div>
                                   <% } else { %>
                                     <div class="col-2">
-                                      <a href="/campaign/personal/<%=campaigns[i].id%>"
+                                      <a href="/campaign/personal/<%=campaigns[i].id%>" target="_blank"
                                         class="btn btn-sm btn-dark me-1 viewButton buttonGameBlack">View</a>
                                     </div>
                                     <div class="col-2 checkDoc">
                                       <div class="btn-group">
                                         <button
-                                          class="btn btn-dark btn-sm dropdown-toggle unapproved-dropdown docButton buttonGameBlack"
+                                          class="btn btn-dark btn-sm dropdown-toggle unapproved-dropdown docButton buttonGameBlack w-125"
                                           type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                           Documents
                                         </button>

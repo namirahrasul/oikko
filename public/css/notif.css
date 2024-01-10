@@ -141,10 +141,10 @@ display: block;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Vertically space contents evenly */
+    justify-content: space-between; 
     width: 340px;
    
-    padding: 3px 8px 3px 8px; /* Top padding reduced to create space above the button */
+    padding: 3px 8px 3px 8px; 
 }
 
 
@@ -370,7 +370,7 @@ display: block;
 }
 
 .fixSize{
-  height: 550px;
+  height: 600px;
 }
 
 .boldforName{
@@ -378,7 +378,11 @@ display: block;
   color: #005571;
 }
 
-
+.progress{
+  height: 25px; width: 300px; margin: auto;
+  
+  border: 1px solid #565756;
+}
 
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
@@ -437,4 +441,21 @@ display: block;
 .report-btn{
   text-decoration: none;
   color: #fff;
+}
+
+.docButton{
+  margin-left: 4%;
+  margin-right: 40%;
+  width: 100%;
+  height: 90%;
+  font-weight: bold;
+  background-color: #000;
+  color: white;
+  /* border: 2px solid; */
+
+}
+
+.docButton:hover{
+  background-color: rgb(255, 0, 0);
+  color: black;
 }

@@ -6,7 +6,7 @@ const dotenv = require('dotenv')
 const sessionStore = require('./models/sessionStore') // Import the sessionStore setup
 const mainRoutes = require('./controllers/routes') // Import your routes
 const app = express()
-
+const bodyparser = require('body-parser')
 dotenv.config()
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))

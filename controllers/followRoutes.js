@@ -24,7 +24,9 @@ router.post('/submit', async (req, res) => {
     // Handle the error or return an error response
   } else {
     const result = await followModel.insertFollowData(follower, cid)
-    const result2 =await followModel.updateCampaignFollowersById(cid)
+    const result2 = await followModel.IncreaseCampaignFollowersById(cid)
+    const res = await followModel.insertFollowData2(follower, cid)
+   
     console.log("result");
     console.log(result)
     console.log("result2", result2);

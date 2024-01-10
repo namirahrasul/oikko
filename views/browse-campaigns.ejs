@@ -121,89 +121,106 @@
                     <div class="container mt-4 vh-100">
                         <div>
                             <p class="gap"></p>
-                          <% if(campaigns.length==0) { %>
-                                                <p>No results found</p>
-                            <% } else {%>
+                            <% if(campaigns.length==0) { %>
+                                <p>No results found</p>
+                                <% } else {%>
 
-                            <% for (let i=0; i < campaigns.length; i +=3) { %>
-                                <div class="row mb-3 g-5">
-                                    <% for (let j=i; j < i + 3 && j < campaigns.length; j++) { %>
+                                    <% for (let i=0; i < campaigns.length; i +=3) { %>
+                                        <div class="row mb-3 g-5">
+                                            <% for (let j=i; j < i + 3 && j < campaigns.length; j++) { %>
 
-                                        <div class="col-md-4 mb-lg-5 mr ">
-                                            <div class="card">
-                                                <div class="card-body d-flex flex-column justify-content-between">
-                                                    <div class="campaign-info">
-                                                        <div class="card-img-container">
-                                                            <img src="/uploads/<%= campaigns[j].campaign_img %>"
-                                                                alt="campaign image" class="img-fluid mb-2">
-                                                        </div>
-                                                        <h5 class="card-title fs-sm-3">
-                                                            <%= campaigns[j].title %>
-                                                        </h5>
-                                                        <p class="card-text">
-                                                            <%= campaigns[j].tagline %>
-                                                        </p>
-                                                        <br>
-                                                    </div>
-                                                    <div class="card-actions">
-                                                        <% if (campaigns[j].is_prelaunch) { %>
-
-
-                                                            <a href="/campaign/prelaunch/<%= campaigns[j].id %>"
-                                                                class="btn btn-dark mb-2 mt-2">Learn More</a>
-                                                            <p class="text-center fs-sm-5">
-                                                                <i class="fas fa-thumbs-up "
-                                                                    style="padding-right:.2rem;"></i>
-                                                                <%= campaigns[j].no_followers %>
-                                                            </p>
-                                                            <% } else { %>
-                                                                <div class="row mt-2 text-center">
-                                                                    <p class="col-3 fs-sm-5 ">Ends:</p>
-                                                                    <p class="col-9 fs-sm-5 text-danger">
-                                                                        <%= campaigns[j].goal_d %>
-                                                                    </p>
+                                                <div class="col-md-4 mb-lg-5 mr ">
+                                                    <div class="card text-center">
+                                                        <div
+                                                            class="card-body d-flex flex-column justify-content-between">
+                                                            <div class="campaign-info">
+                                                                <div class="card-img-container">
+                                                                    <img src="/uploads/<%= campaigns[j].campaign_img %>"
+                                                                        alt="campaign image" class="img-fluid mb-2">
                                                                 </div>
+                                                                <h5 class="card-title fs-sm-3">
+                                                                    <%= campaigns[j].title %>
+                                                                </h5>
+                                                                <p class="card-text">
+                                                                    <%= campaigns[j].tagline %>
+                                                                </p>
+                                                                <br>
+                                                            </div>
+                                                            <div class="card-actions">
+                                                                <% if (campaigns[j].is_prelaunch) { %>
 
-
-                                                                <a href="/campaign/personal/<%= campaigns[j].id %>"
-                                                                    class="btn btn-dark mb-2 mt-2">Learn More</a>
-
-
-                                                                <div class="row">
-                                                                    <p class="col-2 fs-sm-5 d-flex align-items-center">
-                                                                        <i class="fas fa-thumbs-up "
-                                                                            style="padding-right:.2rem;"></i>
+                                                                    <p class="text-center fs-sm-5">
+                                                                        <i class="fas fa-thumbs-up " style="padding-right:.2rem;"></i>
                                                                         <%= campaigns[j].no_followers %>
                                                                     </p>
-                                                                    <p class="col-3 fs-sm-5 d-flex align-items-center">
-                                                                        <i class="fas fa-users "
-                                                                            style="padding-right:.2rem;"></i>
-                                                                        <%= campaigns[j].no_donors %>
-                                                                    </p>
-                                                                    <% var raised=campaigns[j].amount_raised; %>
-                                                                        <% var goal=campaigns[j].goal_amount; %>
-                                                                            <% var percentage=(raised / goal) * 100; %>
+                                                                    <a href="/campaign/prelaunch/<%= campaigns[j].id %>"
+                                                                        class="btn btn-dark mb-2 mt-2">Learn More</a>
+                                                                    
+                                                                    <% } else { %>
+                                                                        <div class="row mt-2 text-center">
+                                                                            <p class="col-3 fs-sm-5 ">Ends:</p>
+                                                                            <p class="col-9 fs-sm-5 text-danger">
+                                                                                <%= campaigns[j].goal_d %>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-11 align-self-center">
+                                                                                <% var
+                                                                                    raised=campaigns[j].amount_raised;
+                                                                                    %>
+                                                                                    <% var
+                                                                                        goal=campaigns[j].goal_amount;
+                                                                                        %>
+                                                                                        <% var percentage=(raised /
+                                                                                            goal) * 100; %>
+                                                                                            <div class="progress"
+                                                                                                role="progressbar"
+                                                                                                aria-label="Success example"
+                                                                                                aria-valuenow="percentage.toFixed(2)"
+                                                                                                aria-valuemin="0"
+                                                                                                aria-valuemax="100"
+                                                                                                style="height: 25px;">
+                                                                                                <div class="progress-bar bg-success-subtle text-success "
+                                                                                                    style="width: <%= percentage.toFixed(2) %>%">
+                                                                                                    <%=raised%> Tk /
+                                                                                                        <%=goal%> Tk
+                                                                                                </div>
+                                                                                            </div>
 
-                                                                                <p
-                                                                                    class="col-7 fs-sm-5 d-flex align-items-center">
-                                                                                    <i class="fas fa-money-bill"></i
-                                                                                        style="padding-right:.2rem;">
-                                                                                    <%= campaigns[j].amount_raised %>Tk
-                                                                                        (<%= percentage.toFixed(2) %>%)
-                                                                                </p>
-                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row text-center">
+                                                                            <div
+                                                                                class="col-6 fs-sm-5 d-flex align-items-center justify-content-center">
+                                                                                <i class="fas fa-thumbs-up"
+                                                                                    style="padding-right:.2rem;"></i>
+                                                                                <%= campaigns[j].no_followers %>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-6 fs-sm-5 d-flex align-items-center justify-content-center">
+                                                                                <i class="fas fa-users"
+                                                                                    style="padding-right:.2rem;"></i>
+                                                                                <%= campaigns[j].no_donors %>
+                                                                            </div>
+                                                                        </div>
+                                                                        <a href="/campaign/personal/<%= campaigns[j].id %>"
+                                                                            class="btn btn-dark mb-2 mt-2">Learn
+                                                                            More</a>
 
-                                                                <% } %>
 
+
+
+                                                                        <% } %>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
+                                                <% } %>
+                                        </div>
                                         <% } %>
-                                </div>
-                                <% } %>
-                           <% } %>
+                                            <% } %>
                         </div>
                     </div>
 
@@ -213,53 +230,6 @@
             <!-- Include Vue.js and your custom Vue component -->
             <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-
-            <script>
-                new Vue({
-                    el: '#app',
-                    data: {
-
-                        // inputData: '',
-                        // selectedType: '', // Initialize with an empty string
-                        // selectedBackers: '', // Initialize with an empty string
-                        // selectedAmount: '', // Initialize with an empty string
-                        // selectedFollowers: '', // Initialize with an empty string
-                        // sortBy: '', // Initially no sorting
-                    },
-                    //   created() {
-                    //     // Retrieve the input data from localStorage when the page is loaded
-                    //     const storedInput = localStorage.getItem('inputData');
-                    //     if (storedInput) {
-                    //         this.inputData = storedInput;
-                    //     }
-                    // },
-                    // computed: {
-                    //     linkHrefSearch() {
-                    //         return `/search?data=${encodeURIComponent(this.inputData)}`;
-                    //     },
-                    //     linkHrefSortAmountRaised() {
-                    //         return `/sort/amount?data=${encodeURIComponent(this.inputData)}`;
-                    //     },
-                    //     linkHrefSortDeadline() {
-                    //         return `/sort/deadline?data=${encodeURIComponent(this.inputData)}`;
-                    //     },
-                    //     linkHrefSortFollowers() {
-                    //         return `/sort/followers?data=${encodeURIComponent(this.inputData)}`;
-                    //     },
-                    //     linkHrefSortBackers() {
-                    //         return `/sort/backers?data=${encodeURIComponent(this.inputData)}`;
-                    //     },
-
-                    // },
-                    methods: {
-
-                    },
-                });
-            </script>
-
-            <!-- <footer>
-        <p>&copy; 2023 Your Company. All Rights Reserved.</p>
-    </footer> -->
     </body>
 
 </html>

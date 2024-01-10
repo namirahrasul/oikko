@@ -8,10 +8,10 @@
         <div class="notifnav">
           <ul>
             <li><a href="#" class="notiflogo notifa">
-                <% if (user.profile_img==null){ %>
-                  <img src="/images/default.jpg" alt="Profile">
+                <% if (profile.profile_img){ %>
+                  <img src="/uploads/<%=profile.profile_img%>" alt="Profile">
                   <% } else { %>
-                    <img src="/uploads/<%=user.profile_img%>" alt="Profile">
+                    <img src="/images/default.jpg" alt="Profile">
                     <% } %>
                       <span class="notifnav-item">DashBoard</span>
               </a>
@@ -42,6 +42,14 @@
               <li><a href="/reported-campaigns" class="notifa">
                   <i class="fas fa-users"></i>
                   <span class="notifnav-item">Reported Campaigns</span>
+                </a></li>
+              <li><a href="/delete-requests" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Delete Requests</span>
+                </a></li>
+              <li><a href="/edit-requests" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Edit Requests</span>
                 </a></li>
               <li><a href="/users" class="notifa">
                   <i class="fas fa-users"></i>
@@ -93,40 +101,40 @@
                   <div class="data names">
                     <span class="data-title"><b class="boldName"><u></u>Users</b></span>
                     <div class="col-md-12">
-                      <% if(users.length==0) { %>
-                        <p>No users yet</p>
-                        <% } else {%>
+                     
                           <div class="row justify-content-between expand">
-                            <div class="col-md-4">
+                            <div class="col-3 me-4">
                               <h4 class="boldforName">Name</h4>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-3 me-5">
                               <h4 class="boldforName">Email</h4>
                             </div>
-                            <div class="col-md-1 me-5">
+                            <div class="col-2 me-1">
                               <h4 class="boldforName">View</h4>
                             </div>
-                            <div class="col-md-1 ms-0 me-4 ">
+                            <div class="col-2 me-1 ">
                               <h4 class="boldforName">Delete</h4>
                             </div>
-
+                            </div>
+                            <% if(users.length==0) { %>
+                              <p>No users yet</p>
+                              <% } else {%>
                             <% for (let i=0; i < users.length; i++) { %>
-                              <div class="row justify-content-between">
-                                <div class="col-md-4">
+                              <div class="row justify-content-between expand">
+                                <div class="col-3 me-5">
                                   <%=users[i].name%>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-3 me-5">
                                   <%=users[i].email%>
                                 </div>
-                                <div class="col-md-1 me-4">
-                                  <form class="mb-1 mt-1" action="/admin" method="post">
-                                    <button type="submit" class="btn btn-dark">View</button>
-                                  </form>
+                                <div class="col-2 me-1">
+                                  <a href="/user/<%=users[i].email%>" class=" text-white mb-1 mt-1"> <button class="btn btn-dark">View Profile</button>
+                                  </a>
                                 </div>
-                                <div class="col-md-1 me-4">
-                                  <form class="mb-1 mt-1" action="/admin/deleteUser/<%=users[i].email%>" method="post">
-                                    <button type="submit" class="btn btn-dark">Delete</button>
-                                  </form>
+                                <div class="col-2 ms-5">
+                                  
+                                  <a href="/block-user/<%=users[i].email%>" class=" text-white mb-1 mt-1"> <button  class="btn btn-dark px-3">Block</button>
+                                  </a>
                                 </div>
                               </div>
                               <div class="row">
@@ -136,7 +144,7 @@
                               </div>
                               <% } %>
 
-                          </div>
+                          
                           <% } %>
                     </div>
                   </div>

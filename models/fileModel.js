@@ -3,6 +3,7 @@ const mysql = require('mysql2')
 const { v4: uuidv4 } = require('uuid') // Import the UUID library
 const path = require('path')
 const multer = require('multer')
+const { reset } = require('nodemon')
 // const upload = multer({ dest: 'uploads/' });
 
 const pool = mysql.createPool({
@@ -12,13 +13,11 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME || 'oikko',
   port: process.env.DB_PORT || 3306,
   waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+  connectionLimit: 20,
+  queueLimit: 5,
 })
 
-
-
-function insertCampaign(
+async function insertCampaign(
   req,
   email,
   title,
@@ -57,8 +56,7 @@ function insertCampaign(
   is_business,
   callback
 ) {
-  console.log(req.file)
-  console.log(req.body)
+  
 
   // Get a connection from the pool
   pool.getConnection((connectionErr, connection) => {
@@ -126,8 +124,11 @@ function insertCampaign(
     )
   })
 }
+   
 
-function insertBusiness(
+
+
+async function insertBusiness(
   req,
   email,
   bid,
@@ -142,8 +143,7 @@ function insertBusiness(
   extras,
   callback
 ) {
-  console.log(req.file)
-  console.log(req.body)
+
 
   // Get a connection from the pool
   pool.getConnection((connectionErr, connection) => {
@@ -187,10 +187,37 @@ function insertBusiness(
     )
   })
 }
+
+async function insertNotif(req, email, cid, callback) {
+  console.log(email, cid);
+  // Get a connection from the pool
+  pool.getConnection((connectionErr, connection) => {
+    if (connectionErr) {
+      callback(connectionErr);
+      return;
+    }
+
+    // SQL query to insert user information and unique image path
+    const sql2 = 'INSERT INTO admin_notifs (email, cid, is_create) VALUES (?, ?, 1)';
+
+    // Execute the query with user information and unique image path
+    connection.query(sql2, [email, cid], (queryErr, result) => {
+      // Release the connection whether there was an error or not
+      connection.release();
+
+      if (queryErr) {
+        callback(queryErr);
+        return;
+      }
+
+      callback(null, result);
+    });
+  });
+}
+
 module.exports = {
-  // insertUserWithUniqueImagePath,
-  // insertPrelaunch,
-  // insertBusinessCampaign,
+
   insertCampaign,
-  insertBusiness
+  insertBusiness,
+  insertNotif
 }

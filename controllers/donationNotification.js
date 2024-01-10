@@ -5,6 +5,7 @@ const router= express.Router()
 
 // Controller function to get a specific record by id
 const donationModel = require('../models/donationModel')
+const profileModel = require('../models/profileModel')
 
 async function getNotifications (req, res){
     const notif = req.session.user.email;
@@ -32,13 +33,14 @@ async function getBackedCampaignsProfile(req, res) {
   try {
     // Get follow details by email using your model function
     const campaigns = await donationModel.getMyDonation(myDonor);
+    const profile = await profileModel.getProfileImg(myDonor);
     console.log(campaigns);
           if (campaigns === null) {
             // Handle the case where no notification data is found
             // You can render the page without that information or show a message
-            res.render('DonatedCampaigns', { user: req.session.user, don_campaigns: null});
+            res.render('DonatedCampaigns', { user: req.session.user, don_campaigns: null, profile });
         } else {
-            res.render('DonatedCampaigns', { user: req.session.user, campaigns: campaigns });
+            res.render('DonatedCampaigns', { user: req.session.user, campaigns: campaigns,profile});
         }
     
   } catch (error) {

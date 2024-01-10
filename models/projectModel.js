@@ -166,6 +166,70 @@ async function filterCampaignCategory(is_prelaunch, is_personal, is_business, mi
   }
 }
 
+async function insertEditCampaign(sql, values, campaignId,email) {
+  try {
+    console.log("campaign id", campaignId)
+    console.log("sql", sql)
+    console.log("values", values)
+    const [rows, fields] = await pool.execute(sql, values);
+    console.log("reslut",rows)
+    const stmt = "UPDATE campaigns SET is_approved=0 WHERE id=?";
+    const [rows1, fields1] = await pool.execute(stmt, [campaignId]);
+    const stmt2 = "INSERT INTO admin_notifs (cid,is_edit,email) VALUES (?,?,?)";
+    const [rows2,fields2] = await pool.execute(stmt2,[campaignId,1,email]);
+    return rows.insertId; // This will contain information about the affected rows
+  }
+  catch(error) {
+    throw error;
+  }
+}
+
+async function insertEditDocs(sql, values) { 
+  console.log("sql", sql)
+  console.log("values", values)
+  try {
+    const [rows, fields] = await pool.execute(sql, values);
+    return rows.affectedRows; // This will contain information about the affected rows
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+
+
+async function getSingleCampaignById(campaignId) {
+  try {
+    const sql = `SELECT * from campaigns WHERE id = ?`
+    const [rows, fields] = await pool.execute(
+      sql,
+      [campaignId]
+    )
+    if (rows.length === 1) {
+      return rows[0]
+    } else {
+      throw new Error('Campaign not found')
+    }
+  } catch (error) {
+    throw error
+  }
+}
+async function getPersonalEditedById(campaignId) {
+  try {
+    const sql = `SELECT id,email,title,city,state,type,tagline, description, campaign_img, campaign_video, feature, feature_img, goal_amount,  DATE_FORMAT(goal_date,  '%d %M %Y')  as goal_d, bsb,account, bkash, rocket, nagad, upay, perk_title, perk_description, perk_img, perk_price, perk_retail_price, perk_date, fb_url,twitter_url,yt_url, website_url,amount_raised,is_prelaunch,is_business,is_personal,is_approved, no_followers,no_donors FROM edit_campaigns WHERE id = ?`
+    const [rows, fields] = await pool.execute(
+      sql,
+      [campaignId]
+    )
+    if (rows.length === 1) {
+      return rows[0]
+    } else {
+      throw new Error('Campaign not found')
+    }
+  } catch (error) {
+    throw error
+  }
+}
 
 
 module.exports = {
@@ -180,4 +244,8 @@ module.exports = {
   getMaxFollowers,
   getMaxAmountRaised,
   getMaxBackers,
+  insertEditCampaign,
+  getPersonalEditedById,
+  getSingleCampaignById,
+  insertEditDocs
 }

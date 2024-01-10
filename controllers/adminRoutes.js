@@ -7,25 +7,20 @@ const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcrypt')
 
 
-router.post('/deleteUser/:userEmail', async (req, res) => {
 
- const email = req.params.userEmail
- try {
-  await adminModel.deleteUser(email);
-  res.redirect('/users');
-
- } catch (error) {
-  console.error('Error deleting user:', error);
-  res.render('error-page', { error })
- }
-})
 
 router.post('/declineCampaign/:campaignId', async (req, res) => {
  const id = req.params.campaignId
  console.log(id)
  try {
+    const email = await adminModel.getCampaignEmailById(id);
+    console.log(email);
+
   const affectedRows = await adminModel.declineCampaign(id);
   console.log(affectedRows);
+
+    const result = await adminModel.insertRejectData(email,id);
+    console.log(result);
 
   res.redirect('/UnapprovedCampaigns');
 
@@ -39,11 +34,17 @@ router.post('/approveCampaign/:campaignId', async (req, res) => {
  const id = req.params.campaignId
  console.log(id)
  try {
+  // Get the campaign title and creator email using the campaign ID
+  const email = await adminModel.getCampaignEmailById(id);
+  console.log(email);
+
   const affectedRows = await adminModel.approveCampaign(id);
   console.log(affectedRows);
-  // const campaigns = await adminModel.getNotApprovedCampaigns();
-  res.redirect('/UnapprovedCampaigns');
 
+  const result = await adminModel.insertApproveData(email, id);
+  console.log(result);
+
+  res.redirect('/UnapprovedCampaigns');
 
  } catch (error) {
   console.error('Error declining campaign:', error);
@@ -54,10 +55,70 @@ router.post('/review/:rId', async (req, res) => {
  const id = req.params.rId
  console.log(id)
  try {
+  const email = req.session.user.email;
   const affectedRows = await adminModel.markCampaignReviewed(id,email);
   console.log(affectedRows);
   // const campaigns = await adminModel.getNotApprovedCampaigns();
   res.redirect('/reported-campaigns');
+
+
+ } catch (error) {
+  console.error('Error declining campaign:', error);
+ }
+})
+
+router.post('/decline-delete/:campaignId', async (req, res) => {
+ const id = req.params.campaignId
+ console.log(id)
+ try {
+  const affectedRows = await adminModel.declineDelete(id);
+  console.log(affectedRows);
+
+  res.redirect('/delete-requests');
+
+ } catch (error) {
+  console.error('Error declining campaign:', error);
+
+ }
+})
+
+router.post('/approve-delete/:campaignId', async (req, res) => {
+ const id = req.params.campaignId
+ console.log(id)
+ try {
+  const affectedRows = await adminModel.approveDelete(id);
+  console.log(affectedRows);
+  // const campaigns = await adminModel.getNotApprovedCampaigns();
+  res.redirect('/delete-requests');
+
+ } catch (error) {
+  console.error('Error declining campaign:', error);
+ }
+})
+
+router.post('/decline-edit/:campaignId', async (req, res) => {
+ const id = req.params.campaignId
+ console.log(id)
+ try {
+  const affectedRows = await adminModel.declineEdit(id);
+  console.log(affectedRows);
+
+  res.redirect('/edit-requests');
+
+ } catch (error) {
+  console.error('Error declining campaign:', error);
+
+ }
+})
+
+router.post('/approve-edit/:campaignId', async (req, res) => {
+ const id = req.params.campaignId
+ console.log(id)
+ try {
+  const affectedRows = await adminModel.approveEdit(id);
+  console.log(affectedRows);
+  // const campaigns = await adminModel.getNotApprovedCampaigns();
+  res.redirect('/edit-requests');
 
 
  } catch (error) {

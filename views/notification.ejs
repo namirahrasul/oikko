@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('head.ejs', { title: 'Notifications' , stylesheet: '/css/notif.css' }) %>
+<%- include('head.ejs', { title: 'Notifications' , stylesheet: '/css/s_notif.css' }) %>
 
   <body>
     <%- include('navbar.ejs', { user: user }) %>
@@ -8,10 +8,10 @@
         <div class="notifnav">
           <ul>
             <li><a href="#" class="notiflogo notifa">
-                <% if (user.profile_img==null){ %>
-                  <img src="/images/default.jpg" alt="Profile">
+                <% if (profile.profile_img){ %>
+                  <img src="/uploads/<%=profile.profile_img%>" alt="Profile">
                   <% } else { %>
-                    <img src="/uploads/<%=user.profile_img%>" alt="Profile">
+                    <img src="/images/default.jpg" alt="Profile">
                     <% } %>
                       <span class="notifnav-item">DashBoard</span>
               </a>
@@ -42,6 +42,14 @@
               <li><a href="/reported-campaigns" class="notifa">
                   <i class="fas fa-users"></i>
                   <span class="notifnav-item">Reported Campaigns</span>
+                </a></li>
+              <li><a href="/delete-requests" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Delete Requests</span>
+                </a></li>
+              <li><a href="/edit-requests" class="notifa">
+                  <i class="fas fa-users"></i>
+                  <span class="notifnav-item">Edit Requests</span>
                 </a></li>
               <li><a href="/users" class="notifa">
                   <i class="fas fa-users"></i>
@@ -85,7 +93,7 @@
               <ul>
                 <!-- <li class="active"><a href="Notification.html">Notifications</a></li> -->
                 <!-- <li><a href="FollowedCampaigns.html">Followed Campaigns </a></li>
-                  <li><a href="DonatedCampaigns.html">Donated Campaigns</a></li> -->
+                      <li><a href="DonatedCampaigns.html">Donated Campaigns</a></li> -->
 
               </ul>
               <div class="course">
@@ -94,27 +102,117 @@
                   <div class="data names">
                     <span class="data-title"><b class="boldName"><u></u>Notifications</b></span>
                     <div class="col-md-12">
-                      <% if(notification.length==0) { %>
+                      <% if (notification.length==0) { %>
                         <p>No notifications yet</p>
-                        <% } else {%>
+                        <% } else { %>
                           <% for (let i=0; i < notification.length; i++) { %>
-                            <% if(notification[i].is_follow) { %>
+                            <% if (notification[i].is_follow) { %>
                               <p>
-                                <%=notification[i].name%> followed your campaign <b>
-                                    <%=notification[i].title%>
+                                <a href="/user/<%=notification[i].email%>">
+                                <%= notification[i].name %></a> followed your campaign <b>
+                                    <%= notification[i].title %>
                                   </b> on
-                                  <%=notification[i].dd%> at <%=notification[i].tt%>
+                                  <%= notification[i].dd %> at <%= notification[i].tt %>
                               </p>
-                              <% } else {%>
+
+                              <% } else if (notification[i].is_donate) { %>
                                 <p>
-                                  <%=notification[i].name%> backed your campaign <b>
-                                      <%=notification[i].title%>
-                                    </b> by Tk <%=notification[i].amount%> on
-                                      <%=notification[i].dd%> at <%=notification[i].tt%>
+                                  <a href="/user/<%=notification[i].email%>"><%= notification[i].name %></a> backed your campaign <b>
+                                      <%= notification[i].title %>
+                                    </b> by Tk <%= notification[i].amount %> on
+                                      <%= notification[i].dd %> at <%= notification[i].tt %>
                                 </p>
+
                                 <% } %>
                                   <% } %>
                                     <% } %>
+
+                                      <% for (let i=0; i < approve_notification.length; i++) { %>
+                                        <% if (approve_notification[i].is_approve) { %>
+                                          <p class="blue-text">
+                                            Your campaign <b>
+                                              <%= approve_notification[i].title %>
+                                            </b> has been approved on
+                                            <%= approve_notification[i].dd %> at <%= approve_notification[i].tt %>
+                                          </p>
+                                          <% } else { %>
+                                            <p class="red-text">
+                                              Sorry! Your request to start a campaign <b>
+                                                <%= approve_notification[i].title %>
+                                              </b> has been rejected on
+                                              <%= approve_notification[i].dd %> at <%= approve_notification[i].tt %>. Please follow the necessary guidelines.
+                                            </p>
+                                            <% } %>
+                                              <% } %>
+
+                                              <% for (let i=0; i < date_notif.length; i++) { %>
+                                                <% if (date_notif[i].is_goaldate_reached) { %>
+                                                  <p class="green-text">
+                                                    Congratulations!! Your campaign <b>
+                                                      <%= date_notif[i].title %>
+                                                    </b> has reached its goal date on
+                                                    <%= date_notif[i].dd %> at <%= date_notif[i].tt %>
+                                                  </p>
+                                                  <% } %>
+                                                    <% } %>
+
+                                                      <% for (let i=0; i < amt_notif.length; i++) { %>
+                                                        <% if (amt_notif[i].is_goalAmt_reached) { %>
+                                                          <p class="green-text">
+                                                            Congratulations!! Your campaign <b>
+                                                              <%= amt_notif[i].title %>
+                                                            </b> has successfully raised its desired amount on
+                                                            <%= amt_notif[i].dd %> at <%= amt_notif[i].tt %>
+                                                          </p>
+                                                          <% } %>
+                                                            <% } %>
+              <% for (let i=0; i < admin_notif.length; i++) { %>
+                <% if (admin_notif[i].is_edit && !admin_notif[i].is_approved) { %>
+                   <p>Your request for edit on <b>
+                        <%= admin_notif[i].title %>
+                      </b> has been submitted.</p>
+                   
+                  <% } else if (admin_notif[i].is_delete && !admin_notif[i].is_approved ) { %>
+                     <p>Your request for delete on <b>
+                      <%= admin_notif[i].title %>
+                        </b> has been submitted.</p>
+                    
+                  <% } else if (admin_notif[i].is_edit && admin_notif[i].is_approved) { %>
+                      <p>Congratulations!! Your request for edit on <b>
+                          <%= admin_notif[i].title %>
+                        </b> has been approved.</p>
+                      
+                  <% } else if (admin_notif[i].is_delete  && admin_notif[i].is_approved) { %>
+                            <p>Congratulations!! Your request for delete on <b>
+                                <%= admin_notif[i].title %>
+                              </b> has been approved.</p>
+
+                  <% } else if (admin_notif[i].is_create) { %>
+                    <p>Your campaign <b>
+                        <%= admin_notif[i].title %>
+                      </b> has been submitted.</p>
+                  <% }  else if (admin_notif[i].is_report) { %>
+                    <p>Your report on campaign <b>
+                        <%= admin_notif[i].title %>
+                      </b> has been submitted.</p>%>
+              <% } %>
+              <% } %>
+                                                                                        <% for (let i=0; i < report_notif.length; i++) { %>
+                                                                                          <% if (report_notif[i].is_approved) { %>
+                                                                                             Your report on <b>
+                                                                                                <%= report_notif[i].title %>
+                                                                                              </b> has been reviewed. 
+                                                                                            </p>
+                                                                                            <% } %>
+                                                                                              <% } %>
+                                                                                            <% for (let i=0; i < campaign_reported_notif.length; i++) { %>
+                                                                                              <% if (campaign_reported_notif[i].is_approved) { %>
+                                                                                                Your campaign <b>
+                                                                                                  <%= campaign_reported_notif[i].title %>
+                                                                                                </b> has been reported. We will contact you after further investigation.
+                                                                                                </p>
+                                                                                                <% } %>
+                                                                                                  <% } %>
                     </div>
                   </div>
                 </div>

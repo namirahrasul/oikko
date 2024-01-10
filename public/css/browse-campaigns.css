@@ -166,7 +166,7 @@ nav a {
 }
 
 .card {
-    height: 500px;
+    height: 550px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -177,7 +177,11 @@ nav a {
     padding: 3px 8px 3px 8px; /* Top padding reduced to create space above the button */
 }
 
-
+.progress{
+  height: 25px; width: 300px; margin: auto;
+  
+  border: 1px solid #565756;
+}
 .card img {
     max-width: 100%;
     height: auto;

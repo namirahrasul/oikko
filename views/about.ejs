@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('head.ejs', { title: 'About' , stylesheet: '/css/about.css' }) %>
+
+ <body>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+   integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+   integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <%-include('navbar.ejs', { user: user }) %>
+   <div class="container">
+    <section class="about">
+     <h1 class="hed1">About OIKKO</h1>
+     <!-- <p style="font-weight: bold">GeeksforGeeks is a leading platform...</p> -->
+     <h5 class="Subtitle">
+      A Platform Empowering <span>Visions</span> and Fostering
+      <span>Change</span>
+     </h5>
+     <div class="about-info">
+      <div class="about-img">
+       <img src="/images/home/about.png" alt="Barneeeeeey" width="400" height="300">
+      </div>
+      <div>
+       <p class="TextWhole"> Welcome to OIKKO, where dreams find a home and communities unite to
+        turn aspirations into reality. We believe in the power of collective
+        support, where each pledge is a step toward shaping brighter
+        futures. With your participation, OIKKO becomes more than a
+        platform—it becomes a catalyst for change, fostering innovation,
+        empowerment, and shared success. Join us in creating a world where
+        ideas thrive and ambitions flourish. Together, let's transform
+        aspirations into achievements.</p>
+       <!-- <button>Read More...</button> -->
+      </div>
+     </div>
+    </section>
+   </div>
+   <%-include('footer.ejs') %>
+ </body>
+
+</html>

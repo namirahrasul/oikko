@@ -11,12 +11,12 @@
       <div class="notifnav">
         <ul>
           <li><a href="#" class="notiflogo notifa">
-            <% if (user.profile_img == null){ %>
-              <img src="/images/default.jpg" alt="Profile">
-              <% } else { %>
-                <img src="/uploads/<%=user.profile_img%>" alt="Profile">
-                <% } %>
-              <span class="notifnav-item">DashBoard</span>
+              <% if (profile.profile_img){ %>
+                <img src="/uploads/<%=profile.profile_img%>" alt="Profile">
+                <% } else { %>
+                  <img src="/images/default.jpg" alt="Profile">
+                  <% } %>
+                    <span class="notifnav-item">DashBoard</span>
             </a>
           </li>
 
@@ -42,10 +42,23 @@
                 <i class="fas fa-users"></i>
                 <span class="notifnav-item">Approve Campaigns</span>
               </a></li>
+            <li><a href="/reported-campaigns" class="notifa">
+                <i class="fas fa-users"></i>
+                <span class="notifnav-item">Reported Campaigns</span>
+              </a></li>
+            <li><a href="/delete-requests" class="notifa">
+                <i class="fas fa-users"></i>
+                <span class="notifnav-item">Delete Requests</span>
+              </a></li>
+            <li><a href="/edit-requests" class="notifa">
+                <i class="fas fa-users"></i>
+                <span class="notifnav-item">Edit Requests</span>
+              </a></li>
             <li><a href="/users" class="notifa">
                 <i class="fas fa-users"></i>
                 <span class="notifnav-item">Users</span>
               </a></li>
+
             <li><a href="/register-admin" class="notifa">
                 <i class="fas fa-users"></i>
                 <span class="notifnav-item">Add Admin</span>
@@ -91,15 +104,16 @@
               <div class="col-md-12">
                 <span class="data-title"><b class="boldName"><u></u>Backed Campaigns</b></span>
                 <% if(campaigns.length==0) { %>
-                  <p>No campaigns followed</p>
+                  <p>No campaigns backed yet</p>
                   <% } else {%>
+
                     <% for (let i=0; i < campaigns.length; i +=3) { %>
                       <div class="row mb-3 g-5">
                         <% for (let j=i; j < i + 3 && j < campaigns.length; j++) { %>
 
                           <div class="col-md-4 mb-lg-5 mr ">
-                            <div class="card">
-                              <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="card fixSize text-center ">
+                              <div class="card-body d-flex flex-column justify-content-between align-items-center">
                                 <div class="campaign-info">
                                   <div class="card-img-container">
                                     <img src="/uploads/<%= campaigns[j].campaign_img %>" alt="campaign image"
@@ -115,16 +129,20 @@
                                   </p>
                                   <br>
                                 </div>
-                                <div class="card-actions">
+                                <div class="card-actions d-flex">
                                   <% if (campaigns[j].is_prelaunch) { %>
-
-
-                                    <a href="/campaign/prelaunch/<%= campaigns[j].id %>"
-                                      class="btn btn-dark mb-2 mt-2">Learn More</a>
                                     <p class="text-center fs-sm-5">
                                       <i class="fas fa-thumbs-up " style="padding-right:.2rem;"></i>
                                       <%= campaigns[j].no_followers %>
                                     </p>
+                                    <div class="row">
+                                      <div class="col-md-12 ">
+                                        <a href="/campaign/prelaunch/<%= campaigns[j].id %>"
+                                          class="btn btn-dark mb-1 px-4 mt-0">Learn
+                                          More</a>
+                                      </div>
+                                    </div>
+
                                     <% } else { %>
                                       <div class="row mt-2 text-center">
                                         <p class="col-3 fs-sm-5 ">Ends:</p>
@@ -134,28 +152,38 @@
                                       </div>
 
 
-                                      <a href="/campaign/personal/<%= campaigns[j].id %>"
-                                        class="btn btn-dark mb-2 mt-2">Learn More</a>
-
-
                                       <div class="row">
-                                        <p class="col-2 fs-sm-5 d-flex align-items-center">
-                                          <i class="fas fa-thumbs-up " style="padding-right:.2rem;"></i>
-                                          <%= campaigns[j].no_followers %>
-                                        </p>
-                                        <p class="col-3 fs-sm-5 d-flex align-items-center">
-                                          <i class="fas fa-users " style="padding-right:.2rem;"></i>
-                                          <%= campaigns[j].no_donors %>
-                                        </p>
-                                        <% var raised=campaigns[j].amount_raised; %>
-                                          <% var goal=campaigns[j].goal_amount; %>
-                                            <% var percentage=(raised / goal) * 100; %>
+                                        <div class="col-11 align-self-center">
+                                          <% var raised=campaigns[j].amount_raised; %>
+                                            <% var goal=campaigns[j].goal_amount; %>
+                                              <% var percentage=(raised / goal) * 100; %>
+                                                <div class="progress" role="progressbar" aria-label="Success example"
+                                                  aria-valuenow="percentage.toFixed(2)" aria-valuemin="0"
+                                                  aria-valuemax="100" style="height: 25px;">
+                                                  <div class="progress-bar bg-success-subtle text-success "
+                                                    style="width: <%= percentage.toFixed(2) %>%">
+                                                    <%=raised%> Tk / <%=goal%> Tk
+                                                  </div>
+                                                </div>
 
-                                              <p class="col-7 fs-sm-5 d-flex align-items-center">
-                                                <i class="fas fa-money-bill"></i style="padding-right:.2rem;">
-                                                <%= campaigns[j].amount_raised %>Tk
-                                                  (<%= percentage.toFixed(2) %>%)
-                                              </p>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-6 fs-sm-5 d-flex align-items-center justify-content-center">
+                                          <i class="fas fa-thumbs-up" style="padding-right:.2rem;"></i>
+                                          <%= campaigns[j].no_followers %>
+                                        </div>
+                                        <div class="col-6 fs-sm-5 d-flex align-items-center justify-content-center">
+                                          <i class="fas fa-users" style="padding-right:.2rem;"></i>
+                                          <%= campaigns[j].no_donors %>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-12 ">
+                                          <a href="/campaign/personal/<%= campaigns[j].id %>"
+                                            class="btn btn-dark mb-1 px-4 mt-0 ">Learn
+                                            More</a>
+                                        </div>
                                       </div>
 
                                       <% } %>

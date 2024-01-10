@@ -117,7 +117,7 @@ async function createUser(username, email, password) {
 
 // Function to authenticate a user
 async function authenticateUser(email, password) {
-  const sql = 'SELECT * FROM users WHERE email = ?'
+  const sql = 'SELECT * FROM users WHERE email = ? and is_blocked=0'
 
   return new Promise((resolve, reject) => {
     pool.query(sql, [email], async (err, rows) => {

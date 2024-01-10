@@ -80,3 +80,7 @@
         .campaign-title{
             font-size: medium;
         }
+
+        .height-delete{
+            min-height: 30rem;
+        }

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const profileModel = require('../models/profileModel.js')
+const adminModel = require('../models/adminModel.js')
 const multer = require('multer')
 const fs = require('fs')
 // const upload = multer({ dest: 'uploads/' }); // Specify the destination directory for uploaded files
@@ -35,9 +36,10 @@ router.post(
    const {
     new_email,
     name,
+    phone,
     bio_description
    } = req.body
-   console.log(new_email, name, bio_description)
+   console.log(new_email, name, phone, bio_description)
 
    const email = req.session.user.email
    var profile_img;
@@ -58,12 +60,13 @@ router.post(
     email,
     new_email,
     name,
+    phone,
     profile_img,
     bio_description)
 
    if (updateProfileResult) {
     console.log('updateProfileResult', updateProfileResult)
-    res.redirect('/')
+    res.redirect('/MyCampaigns')
    }
   } catch (error) {
    console.log(error)
@@ -71,25 +74,6 @@ router.post(
   }
  }
 )
-
-router.post('/delete', async (req, res) => {
- const {cid}=req.body
- const deleteCampaignResult = await profileModel.deleteCampaign(cid)
- if (deleteCampaignResult) {
-  console.log('deleteCampaignResult', deleteCampaignResult)
-  res.redirect('/MyCampaigns')
- }
-}
-)
-
-router.get('/edit/prelaunch/:campaignId', async (req, res) => {
- const campaignId = req.params.campaignId
- const campaign = await profileModel.editPrelaunchById(campaignId)
- if (campaign) {
-  console.log('campaign', campaign)
-  res.redirect('/prelaunch')
- }
-})
 
 router.post('/report/:campaignId', [
  upload.fields([
@@ -110,8 +94,22 @@ router.post('/report/:campaignId', [
  const reportResult = await profileModel.InsertReport(campaignId, email, title, description, evidence)
  if (reportResult) {
   console.log('reportResult', reportResult)
-  res.redirect('/accepted-report')
+  res.redirect('/notification')
  }
+}
+
+)
+
+router.post('/delete/:campaignId', async (req, res) => {
+ const campaignId = req.params.campaignId
+ const { reason } = req.body
+ const email = req.session.user.email
+ const deleteResult = await profileModel.InsertDelete(campaignId, email, reason);
+ if (deleteResult) {
+  console.log('deleteResult', deleteResult)
+  res.redirect('/notification')
+ }
+ 
 }
 
 )

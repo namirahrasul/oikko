@@ -2,74 +2,75 @@
 <html lang="en">
 <%- include('head.ejs', { title: 'Edit Prelaunch' , stylesheet: '/css/prelaunch.css' }) %>
 
- <body>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-   integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-   integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
-  <%-include('navbar.ejs', { user: user }) %>
-   <div class="container">
-    <div class="row justify-content-center">
-     <div class="col-6">
-      <form id="user" action="/file/submit-prelaunch" method="post" enctype="multipart/form-data">
-       <hr />
-       <p class="base"><b>Prelaunch </b></p>
-       <hr />
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"></script>
+    <%-include('navbar.ejs', { user: user }) %>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <form id="user" action="/file/edit-prelaunch/<%=campaignId%>" method="post" enctype="multipart/form-data">
+              <hr />
+              <p class="base"><b>Edit Prelaunch </b></p>
+              <hr />
 
-       <br />
-       <p class="base">Introduction</p>
-       <hr />
-       <p class="para"></p>
-       <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Title</label><label class="star hed">*</label>
+              <br />
+              <p class="base">Introduction</p>
+              <hr />
+              <p class="para"></p>
+              <div class="col-md-50 position-relative">
+                <label class="hed" for="campaignTitle">Title</label>
 
-        <input type="text" class="form-control" id="title" name="title" placeholder="What is the title of your project?"
-         required />
+                <input type="text" class="form-control" id="title" name="title"
+                  placeholder="What is the title of your project?" />
 
-        <br />
-        <label class="hed" for="description">City</label><label class="star hed">*</label>
-        <br>
-        <input name="city" id="description" required />
-        <br />
-        <br />
-        <label class="hed" for="description">State</label><label class="star hed">*</label>
-        <br>
-        <select class="form-select" name="state" id="validationDefault04" required>
-         <option selected disabled value=""></option>
-         <option>Dhaka</option>
-         <option>Sylhet</option>
-         <option>Rajshahi</option>
-         <option>Khulna</option>
-         <option>Chittagong</option>
-         <option>Barishal</option>
-         <option>Mymenshing</option>
-        </select>
-        <br />
-        <label for="validationDefault04" class="form-label hed">Type of prelaunch</label><label
-         class="star hed">*</label>
-        <select class="form-select" id="validationDefault04" name="type" required>
-         <option selected disabled value=""></option>
-         <option>Business</option>
-         <option>Medical</option>
-         <option>Education</option>
-        </select>
-        <br>
-        <div class="col-md-50 position-relative">
-         <label class="hed" for="campaignTitle">Tagline</label>
+                <br />
+                <label class="hed" for="description">City</label>
+                <br>
+                <input name="city" id="description" />
+                <br />
+                <br />
+                <label class="hed" for="description">State</label>
+                <br>
+                <select class="form-select" name="state" id="validationDefault04">
+                  <option selected disabled value=""></option>
+                  <option>Dhaka</option>
+                  <option>Sylhet</option>
+                  <option>Rajshahi</option>
+                  <option>Khulna</option>
+                  <option>Chittagong</option>
+                  <option>Barishal</option>
+                  <option>Mymenshing</option>
+                </select>
+                <br />
+                <label for="validationDefault04" class="form-label hed">Type of prelaunch</label>
+                <select class="form-select" id="validationDefault04" name="type">
+                  <option selected disabled value=""></option>
+                  <option>Business</option>
+                  <option>Medical</option>
+                  <option>Education</option>
+                </select>
+                <br>
+                <div class="col-md-50 position-relative">
+                  <label class="hed" for="campaignTitle">Tagline</label>
 
-         <input type="text" class="form-control" id="tagline" name="tagline"
-          placeholder="What is the tagline of your project?" />
-        </div>
-        <br>
+                  <input type="text" class="form-control" id="tagline" name="tagline"
+                    placeholder="What is the tagline of your project?" />
+                </div>
+                <br>
 
-        <div class="col-md-50 position-relative">
-         <label class="hed" for="description">Description</label><label class="star hed">*</label> <br>
-         <p><small>Tell a short story about your project.</small></p><br>
-         <textarea name="description" id="description" cols="50" rows="6" required></textarea>
-         <br />
-         <br />
+                <div class="col-md-50 position-relative">
+                  <label class="hed" for="description">Description</label> <br>
+                  <p><small>Tell a short story about your project.</small></p><br>
+                  <textarea name="description" id="description" cols="50" rows="6"></textarea>
+                  <br />
+                  <br />
 
-         <!-- <label for="main_video_url" class="subhed"> URL: </label>
+                  <!-- <label for="main_video_url" class="subhed"> URL: </label>
                 <input
                   type="text"
                   class="form-control"
@@ -78,48 +79,50 @@
                   placeholder="http://"
                 /> -->
 
-         <label class="hed" for="main_image_url">Main Image</label><label class="star hed">*</label><br />
+                  <label class="hed" for="main_image_url">Main Image</label><br />
 
-         <small id="CampaignArea" class="form-text text-muted">Recommended dimensions: <b>660x460 pixels</b>. PNG or JPG
-          supported.</small>
-         <input type="file" id="picture" name="file1" accept="image/*" />
-         <br />
-         <br />
-         <label class="hed" for="main_video_url">Video URL</label><label class="star hed">*</label>
-         <br />
-         <label for="main_video_url" class="subhed">
-          Upload Video:
-         </label>
-         <br><small>Must be the url in the <b> embedded</b> link.</small>
-         <input type="text" class="form-control" id="campaign_video" name="campaign_video"
-          aria-describedby="campaignhelp" placeholder="http://" />
-         <br />
-        </div>
-        <br />
-       </div>
-       <br /><br />
-       <p class="base">Project Feature</p>
-       <hr />
-       <p></p>
-       <div class="col-md-50 position-relative">
-        <br />
-        <label class="hed" for="main_feature">Description</label><label class="star hed">*</label>
-        <br />
-        <small>Describe the main features of your campaign</small>
-        <br />
-        <br />
-        <textarea name="feature" id="main_feature" cols="50" rows="6" required></textarea>
-        <br /><br />
-        <label class="hed" for="main_feature_image_url">Feature Image</label><label class="star hed">*</label>
-        <br />
-        <small id="CampaignArea" class="form-text text-muted">Recommended dimensions: <b>660x460 pixels</b>. PNG or JPG
-         supported.</small>
-        <input type="file" id="main_feature_image_url" name="file2" accept="image/*" />
-        <br />
-        <br />
-       </div>
-       <br /><br />
-       <!-- <p class="base">Project Gallery</p>
+                  <small id="CampaignArea" class="form-text text-muted">Recommended dimensions: <b>660x460 pixels</b>.
+                    PNG or JPG
+                    supported.</small>
+                  <input type="file" id="picture" name="file1" accept="image/*" />
+                  <br />
+                  <br />
+                  <label class="hed" for="main_video_url">Video URL</label>
+                  <br />
+                  <label for="main_video_url" class="subhed">
+                    Upload Video:
+                  </label>
+                  <br><small>Must be the url in the <b> embedded</b> link.</small>
+                  <input type="text" class="form-control" id="campaign_video" name="campaign_video"
+                    aria-describedby="campaignhelp" placeholder="http://" />
+                  <br />
+                </div>
+                <br />
+              </div>
+              <br /><br />
+              <p class="base">Project Feature</p>
+              <hr />
+              <p></p>
+              <div class="col-md-50 position-relative">
+                <br />
+                <label class="hed" for="main_feature">Description</label>
+                <br />
+                <small>Describe the main features of your campaign</small>
+                <br />
+                <br />
+                <textarea name="feature" id="main_feature" cols="50" rows="6"></textarea>
+                <br /><br />
+                <label class="hed" for="main_feature_image_url">Feature Image</label>
+                <br />
+                <small id="CampaignArea" class="form-text text-muted">Recommended dimensions: <b>660x460 pixels</b>. PNG
+                  or JPG
+                  supported.</small>
+                <input type="file" id="main_feature_image_url" name="file2" accept="image/*" />
+                <br />
+                <br />
+              </div>
+              <br /><br />
+              <!-- <p class="base">Project Gallery</p>
             <hr />
             <p>
               <b
@@ -140,56 +143,56 @@
               accept="image/*"
             />
             <br /><br /> -->
-       <!-- <div class="col-md-50 position-relative ">
+              <!-- <div class="col-md-50 position-relative ">
                             <label class="hed" for="campaignTitle">Description</label>
                             <textarea name="Describe" id="description" cols="60" rows="6"></textarea>
                             <br>
                             <br>
                         </div>
                         <br> -->
-       <p class="base">Social Sharing</p>
-       <hr />
-       <p>
-        <b>Entice your audience to share this page and get additional
-         boost.</b>
-       </p>
-       <div class="col-md-50 position-relative"></div>
+              <p class="base">Social Sharing</p>
+              <hr />
+              <p>
+                <b>Entice your audience to share this page and get additional
+                  boost.</b>
+              </p>
+              <div class="col-md-50 position-relative"></div>
 
-       <br />
-       <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Facebook URL</label>
-        <input type="text" class="form-control" id="fb_url" name="fb_url"
-         placeholder="https://www.facebook.com/projectName" />
-       </div>
-       <br />
-       <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Twitter URL</label>
-        <input type="text" class="form-control" id="twitter_url" name="twitter_url"
-         placeholder="https://www.twitter.com/projectName" />
-       </div>
-       <br />
-       <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">YouTube URL</label>
-        <input type="text" class="form-control" id="yt_url" name="yt_url"
-         placeholder="https://www.youtube.com/projectName" />
-       </div>
-       <br />
-       <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Website URL</label>
-        <input type="text" class="form-control" id="website_url" name="website_url"
-         placeholder="https://www.projectName.com/" />
-       </div>
-       <br />
-       <div class="justify-content-center">
-        <button class="btn btn-dark w-75" type="submit" style="margin: 20px 0px 20px 60px">
-         Submit Pre-Launch
-        </button>
-       </div>
-      </form>
-     </div>
-    </div>
-   </div>
-   <%-include('footer.ejs') %>
- </body>
+              <br />
+              <div class="col-md-50 position-relative">
+                <label class="hed" for="campaignTitle">Facebook URL</label>
+                <input type="text" class="form-control" id="fb_url" name="fb_url"
+                  placeholder="https://www.facebook.com/projectName" />
+              </div>
+              <br />
+              <div class="col-md-50 position-relative">
+                <label class="hed" for="campaignTitle">Twitter URL</label>
+                <input type="text" class="form-control" id="twitter_url" name="twitter_url"
+                  placeholder="https://www.twitter.com/projectName" />
+              </div>
+              <br />
+              <div class="col-md-50 position-relative">
+                <label class="hed" for="campaignTitle">YouTube URL</label>
+                <input type="text" class="form-control" id="yt_url" name="yt_url"
+                  placeholder="https://www.youtube.com/projectName" />
+              </div>
+              <br />
+              <div class="col-md-50 position-relative">
+                <label class="hed" for="campaignTitle">Website URL</label>
+                <input type="text" class="form-control" id="website_url" name="website_url"
+                  placeholder="https://www.projectName.com/" />
+              </div>
+              <br />
+              <div class="justify-content-center">
+                <button class="btn btn-dark w-75" type="submit" style="margin: 20px 0px 20px 60px">
+                  Submit Pre-Launch
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <%-include('footer.ejs') %>
+  </body>
 
 </html>

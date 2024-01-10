@@ -12,7 +12,7 @@
    <div class="container">
     <div class="row justify-content-center">
      <div class="col-6">
-      <form id="user" action="/file/submit-business" method="post" enctype="multipart/form-data">
+      <form id="user" action="/file/edit-business/<%=campaignId%>" method="post" enctype="multipart/form-data">
        <!-- //////////////////////////////BASICS////////////// -->
        <div>
         <hr>
@@ -27,22 +27,22 @@
        <div class="col-md-50 position-relative">
         <br>
         <div class="col-md-10 position-relative">
-         <label class="hed" for="campaignTitle">Campaign Title</label><label class="star hed">*</label>
+         <label class="hed" for="campaignTitle">Campaign Title</label>
          <br>
          <small id="campaignhelp" class="form-text text-muted">What is the title of your campaign?</small>
          <br>
          <input type="text" class="form-control" id="campaignTitle" name="title" aria-describedby="campaignhelp"
-          placeholder="My Campaign Title" required />
+          placeholder="My Campaign Title"  />
         </div>
 
         <div class="col-md-6">
          <label for="validationDefault03" class="form-label hed">City</label>
-         <label class="star hed">*</label>
-         <input type="text" class="form-control" id="validationDefault03" name="city" required />
+        
+         <input type="text" class="form-control" id="validationDefault03" name="city"  />
         </div>
         <div class="col-md-6">
-         <label for="validationDefault04" class="form-label hed">State</label><label class="star hed">*</label>
-         <select class="form-select" id="validationDefault04" name="state" required>
+         <label for="validationDefault04" class="form-label hed">State</label>
+         <select class="form-select" id="validationDefault04" name="state" >
           <option selected disabled value=""></option>
           <option>Dhaka</option>
           <option>Sylhet</option>
@@ -55,8 +55,8 @@
          <br>
         </div>
         <div class="col-md-6">
-         <label for="validationDefault04" class="form-label hed">Campaign Type</label><label class="star hed">*</label>
-         <select class="form-select" id="validationDefault04" name="type" required>
+         <label for="validationDefault04" class="form-label hed">Campaign Type</label>
+         <select class="form-select" id="validationDefault04" name="type" >
           <option selected disabled value=""></option>
           <option>Business</option>
           <option>Medical</option>
@@ -65,20 +65,20 @@
         </div>
         <br>
         <div class="col-md-6">
-         <label class="hed" for="description">Tagline</label><label class="star hed">*</label>
-         <textarea name="tagline" id="tagline" cols="50" rows="3" required></textarea>
+         <label class="hed" for="description">Tagline</label>
+         <textarea name="tagline" id="tagline" cols="50" rows="3" ></textarea>
          <br>
          <br>
         </div>
         <div class="col-md-6">
-         <label class="hed" for="description">Description</label><label class="star hed">*</label>
-         <textarea name="description" id="description" cols="50" rows="6" required></textarea>
+         <label class="hed" for="description">Description</label>
+         <textarea name="description" id="description" cols="50" rows="6"></textarea>
          <br>
          <br>
         </div>
         <div class="col-md-6">
          <div class=" d-flex">
-          <label class="hed ">Campaign Card Image</label><label class="star hed " style="display: inline;">*</label>
+          <label class="hed ">Campaign Card Image</label>
          </div>
          <br>
          <label for="picture" class="subhed">Select Campaign Card:</label>
@@ -91,13 +91,13 @@
           <br>
          </small>
          <br>
-         <input type="file" id="file1" name="file1" accept="image/*" required />
+         <input type="file" id="file1" name="file1" accept="image/*" />
          <br>
          <br>
          <!-- <button class="btn btn-primary col-md-4" type="submit" >Upload Card</button> -->
         </div>
         <div class="col-md-6">
-         <label class="hed" for="main_video_url">Video URL</label><label class="star hed">*</label>
+         <label class="hed" for="main_video_url">Video URL</label>
          <br>
          <label for="main_video_url" class="subhed"> URL: </label>
          <input type="text" class="form-control" id="campaign_video" name="campaign_video" placeholder="http://" />
@@ -109,7 +109,7 @@
        <h1 class="base">FEATURES</h1>
        <hr />
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Main Features</label><label class="star hed">*</label><br>
+        <label class="hed" for="campaignTitle">Main Features</label><br>
 
         <small id="campaignhelp" class="form-text text-muted">What are the main features of your project or
          campaign?</small>
@@ -120,7 +120,7 @@
         <br>
        </div>
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Main Feature Image</label><label class="star hed">*</label><br>
+        <label class="hed" for="campaignTitle">Main Feature Image</label><br>
 
         <small id="campaignhelp" class="form-text text-muted">Upload a square image that represents your
          campaign.
@@ -130,7 +130,7 @@
          <br /></small>
         <br>
         <br>
-        <input type="file" id="file2" name="file2" accept="image/*" required />
+        <input type="file" id="file2" name="file2" accept="image/*" />
         <br><br>
        </div>
 
@@ -139,7 +139,7 @@
        <h1 class="base">CAMPAIGN GOALS</h1>
        <hr />
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Campaign Goal Amount</label><label class="star hed">*</label><br>
+        <label class="hed" for="campaignTitle">Campaign Goal Amount</label><br>
 
         <small id="campaignhelp" class="form-text text-muted">How much money would you like to raise for this
          campaign? A
@@ -151,7 +151,7 @@
         <br><br>
        </div>
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Campaign Goal Date</label><label class="star hed">*</label><br>
+        <label class="hed" for="campaignTitle">Campaign Goal Date</label><br>
 
         <small id="campaignhelp" class="form-text text-muted">Give an estimated end-date of your campaign.
          Minimum campaign
@@ -168,7 +168,7 @@
         <div class="col-md-40 position-relative">
          <label class="hed" for="campaignTitle">BSB Number</label>
          <br>
-         <small id="campaignhelp" class="form-text text-muted">Enter the 6-digit BDB number that identifies
+         <small id="campaignhelp" class="form-text text-muted">Enter the 6-digit BSB number that identifies
           your
           Bank.</small>
          <br>
@@ -234,7 +234,7 @@
 
 
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Title</label><label class="star hed">*</label><br>
+        <label class="hed" for="campaignTitle">Title</label><br>
 
         <small id="campaignhelp" class="form-text text-muted">The title for your perk is what will apear on your
          campaign
@@ -243,12 +243,12 @@
         </small>
         <br>
         <input type="text" class="form-control" id="perk_title" aria-describedby="campaignhelp" placeholder=""
-         name="perk_title" required />
+         name="perk_title" />
        </div>
 
        <br>
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Description</label><label class="star hed">*</label><br>
+        <label class="hed" for="campaignTitle">Description</label><br>
 
         <small id="campaignhelp" class="form-text text-muted">Describe the details of this perk. Be creative.
          This is your
@@ -261,20 +261,20 @@
        </div>
        <br>
        <div>
-        <label class="hed">Perk Image</label><label class="star hed">*</label><br>
+        <label class="hed">Perk Image</label><br>
 
         <small id="CampaignArea" class="form-text text-muted">Recommended dimensions: 660x440 pixels. PNG or JPG
          supported.
          <br>
         </small>
         <br>
-        <input type="file" id="file3" name="file3" accept="image/*" required />
+        <input type="file" id="file3" name="file3" accept="image/*" />
         <br>
         <br>
        </div>
        <br>
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Price</label><label class="star hed">*</label>
+        <label class="hed" for="campaignTitle">Price</label>
         <br>
         <small id="campaignhelp" class="form-text text-muted">Set an amount of price you want to collect from
          backers who
@@ -282,18 +282,18 @@
          to receive for all the items included this perk.</small>
         <br>
         <input type="number" class="form-control" id="perk_price" aria-describedby="campaignhelp" placeholder="Tk"
-         name="perk_price" required />
+         name="perk_price" />
        </div>
        <br>
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle"> Retail Price</label><label class="star hed">*</label><br>
+        <label class="hed" for="campaignTitle"> Retail Price</label><br>
         <input type="number" class="form-control" id="perk_retail_price" aria-describedby="campaignhelp"
          name="perk_retail_price" placeholder="Tk" />
        </div>
 
        <br>
        <div class="col-md-50 position-relative">
-        <label class="hed">Estimated Delivery Date</label><label class="star hed">*</label><br>
+        <label class="hed">Estimated Delivery Date</label><br>
 
         <small id="CampaignArea" class="form-text text-muted">Estimate a delivery date for this perk for your
          backers.
@@ -343,32 +343,32 @@
        <div>
         <label class="hed">Choose NID</label>
         <p class="pclass">NID Number and Face should be clear to view</p>
-        <label for="picture" class="subhed">Font Side</label><label class="star hed">*</label><br>
+        <label for="picture" class="subhed">Font Side</label><br>
 
         <small id="CampaignArea" class="form-text text-muted">Receommended dimensions: <b>660x460 pixels</b>.
          <br>PNG or
          JPG supported
          <br>
         </small>
-        <input type="file" id="picture" name="file4" accept="image/*" required />
+        <input type="file" id="picture" name="file4" accept="image/*" />
 
         <br>
         <br>
-        <label for="picture" class="subhed">Back Side</label><label class="star hed">*</label><br>
+        <label for="picture" class="subhed">Back Side</label><br>
 
         <small id="CampaignArea" class="form-text text-muted">Receommended dimensions: <b>660x460 pixels</b>.
          <br>PNG or
          JPG supported
          <br>
         </small>
-        <input type="file" id="picture" name="file5" accept="image/*" required />
+        <input type="file" id="picture" name="file5" accept="image/*" />
         <!-- <button class="btn btn-primary  col-md-4" type="submit" >Upload NID</button> -->
        </div>
 
        <div>
         <br>
         <br>
-        <label class="hed">Choose Passport</label><label class="star hed">*</label><br>
+        <label class="hed">Choose Passport</label><br>
 
         <p class="pclass">
          Passport Number and Passport Expiry Date should be clear
@@ -380,11 +380,11 @@
          supported
          <br>
         </small>
-        <input type="file" id="picture" name="file6" accept="image/*" required />
+        <input type="file" id="picture" name="file6" accept="image/*"/>
         <br>
        </div>
        <div class="col-md-50 position-relative">
-        <br><label class="hed" for="campaignTitle">Business Plan</label><label class="star hed">*</label>
+        <br><label class="hed" for="campaignTitle">Business Plan</label>
         <br>
         <small id="campaignhelp" class="form-text text-muted">A comprehensive business plan outlining your
          project's goals,
@@ -394,13 +394,13 @@
         <br>
         <!-- <textarea name="" id="" cols="50" rows="6" required></textarea> -->
         <br>
-        <input type="file" id="business_plan" name="file7" required />
+        <input type="file" id="business_plan" name="file7" />
         <br>
         <br>
        </div>
        <br>
        <div class="col-md-50 position-relative">
-        <label class="hed" for="campaignTitle">Project Budget</label><label class="star hed">*</label>
+        <label class="hed" for="campaignTitle">Project Budget</label>
         <br>
         <small id="campaignhelp" class="form-text text-muted">A detailed budget that breaks down how the funds
          raised will be
@@ -410,7 +410,7 @@
         <br>
         <br>
 
-        <input type="file" id="project_budget" name="file8" required />
+        <input type="file" id="project_budget" name="file8"/>
         <br>
         <br>
        </div>

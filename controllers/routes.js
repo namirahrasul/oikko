@@ -95,7 +95,11 @@ router.get(
   projectController.getPrelaunchCampaign
 )
 router.get('/campaign/personal/:campaignId', projectController.getPersonal)
-
+router.get(
+  '/campaign/preview-prelaunch/:campaignId',
+  projectController.previewPrelaunchCampaign
+)
+router.get('/campaign/preview-personal/:campaignId', projectController.previewPersonal)
 
 // Include authentication routes from authController
 router.use('/auth', authController)
@@ -167,12 +171,27 @@ router.get('/users', adminController.getUsers)
 router.get('/unapprovedCampaigns', adminController.getNotApprovedCampaigns)
 router.get('/documents/:campaignId', adminController.getDocumentsOfCampaign)
 router.get('/register-admin', adminController.AddAdmin)
-router.get('/edit-profile', profileController.editProfile)
+
 
 
 router.get('/report/:campaignId', adminController.getReportForm)
 router.get('/accepted-report', adminController.getAcceptedReport)
 router.get('/reported-campaigns', adminController.getReportedCampaigns)
 router.get('/view-report/:rid', adminController.viewCampaignReport)
+router.get('/edit-prelaunch/:campaignId', profileController.getEditPrelaunchForm)
+router.get('/edit-personal-campaign/:campaignId', profileController.getEditPersonalCampaignForm)
+router.get('/edit-business-campaign/:campaignId', profileController.getEditBusinessCampaignForm)
+router.get('/edit-profile', profileController.editProfile)
+router.get('/user/:email', profileController.getUserProfileByEmail)
+router.get('/delete-form/:campaignId', adminController.getDeleteForm)
+router.get('/delete-requests', adminController.getAllDeleteRequests)
+router.get('/edit-requests', adminController.getAllEditRequests)
+router.get('/delete-request/:did', adminController.viewDeleteRequest)
+router.get('/block-user/:email', adminController.getUserBlockForm)
+router.get('/about', adminController.getAboutPage)
+router.get('/services', adminController.getServicesPage)
+
+
+
 
 module.exports = router
